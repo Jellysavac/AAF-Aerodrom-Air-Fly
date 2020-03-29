@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="AirFlyJPA" transaction-type="RESOURCE_LOCAL">
+		<class>model.Aircraft</class>
+		<class>model.Airport</class>
+		<class>model.City</class>
+		<class>model.Company</class>
+		<class>model.Flight</class>
+		<class>model.NumberOfAircraft</class>
+		<class>model.Reservation</class>
+		<class>model.Ticket</class>
+		<class>model.Userr</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/air_fly"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="tim10"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
