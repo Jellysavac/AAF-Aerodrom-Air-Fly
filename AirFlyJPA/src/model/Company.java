@@ -24,6 +24,10 @@ public class Company implements Serializable {
 
 	private String prtljag;
 
+	//bi-directional many-to-one association to Flight
+	@OneToMany(mappedBy="company")
+	private List<Flight> flights;
+
 	//bi-directional many-to-one association to NumberOfAircraft
 	@OneToMany(mappedBy="company")
 	private List<NumberOfAircraft> numberOfAircrafts;
@@ -61,6 +65,28 @@ public class Company implements Serializable {
 
 	public void setPrtljag(String prtljag) {
 		this.prtljag = prtljag;
+	}
+
+	public List<Flight> getFlights() {
+		return this.flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
+
+	public Flight addFlight(Flight flight) {
+		getFlights().add(flight);
+		flight.setCompany(this);
+
+		return flight;
+	}
+
+	public Flight removeFlight(Flight flight) {
+		getFlights().remove(flight);
+		flight.setCompany(null);
+
+		return flight;
 	}
 
 	public List<NumberOfAircraft> getNumberOfAircrafts() {

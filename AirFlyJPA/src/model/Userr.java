@@ -18,13 +18,14 @@ public class Userr implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	private String adresa;
+
 	@Column(name="broj_rezervacija")
 	private int brojRezervacija;
 
-	private String ime;
+	private String email;
 
-	@Column(name="korisnicko_ime")
-	private String korisnickoIme;
+	private String ime;
 
 	private String lozinka;
 
@@ -47,6 +48,14 @@ public class Userr implements Serializable {
 		this.id = id;
 	}
 
+	public String getAdresa() {
+		return this.adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
 	public int getBrojRezervacija() {
 		return this.brojRezervacija;
 	}
@@ -55,20 +64,20 @@ public class Userr implements Serializable {
 		this.brojRezervacija = brojRezervacija;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getIme() {
 		return this.ime;
 	}
 
 	public void setIme(String ime) {
 		this.ime = ime;
-	}
-
-	public String getKorisnickoIme() {
-		return this.korisnickoIme;
-	}
-
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme = korisnickoIme;
 	}
 
 	public String getLozinka() {

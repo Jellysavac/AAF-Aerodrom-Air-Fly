@@ -35,6 +35,10 @@ public class Flight implements Serializable {
 	@JoinColumn(name="dolazni_aerodrom_id")
 	private Airport airport2;
 
+	//bi-directional many-to-one association to Company
+	@ManyToOne
+	private Company company;
+
 	//bi-directional many-to-one association to Ticket
 	@OneToMany(mappedBy="flight")
 	private List<Ticket> tickets;
@@ -88,6 +92,14 @@ public class Flight implements Serializable {
 
 	public void setAirport2(Airport airport2) {
 		this.airport2 = airport2;
+	}
+
+	public Company getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public List<Ticket> getTickets() {
