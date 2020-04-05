@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
-import { Redirect  } from 'react-router-dom';
 
 class Login extends Component {
     state = {
@@ -19,21 +18,22 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        const user = {
-            email: this.state.email,
-            lozinka: this.state.lozinka
-        };
-
         axios.post('http://localhost:8080/AirFly/user/signin', {email: this.state.email, lozinka: this.state.lozinka})
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
+        .then(response => {
+          console.log(response);
+          console.log(response.data);
+          this.props.history.push('/');
         })
-    }
+        .catch(function(error){
+          if(error.response.status===401){
+            alert("Pogrešno unet email i/ili lozinka!")
+          }
+          
+        });
+      }
 
     onSubmit = () => {
-        this.props.history.push('/');
-        
+      this.props.history.push('/');
      }
 
     render() {
@@ -59,7 +59,7 @@ class Login extends Component {
                   </label>
                   <input type="password" id="defaultFormLoginPasswordEx" className="form-control" name="lozinka" onChange={this.handleChange} />
                   <div className="text-center mt-4">
-                    <MDBBtn color="indigo" type="submit" onClick={this.onSubmit}>Login</MDBBtn>                  
+                    <MDBBtn color="indigo" type="submit" >Login</MDBBtn>                  
                   </div>
                 </form>
               </MDBCol>

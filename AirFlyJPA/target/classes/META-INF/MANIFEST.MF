@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Sale
-Build-Jdk: 1.8.0_241
+Built-By: Korisnik
+Build-Jdk: 1.8.0_111
 Created-By: Maven Integration for Eclipse
 
