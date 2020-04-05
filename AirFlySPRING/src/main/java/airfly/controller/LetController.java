@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import airfly.dto.getFlightsDto;
+import airfly.dto.FlightsDto;
 import airfly.repository.LetRepository;
 import model.Flight;
 
@@ -24,14 +24,14 @@ public class LetController {
 	LetRepository lr;
 	
 	@GetMapping("/getAllFlights")
-	ResponseEntity<List<getFlightsDto>> getAllFlights(){
-		List<getFlightsDto> gdto=new ArrayList<getFlightsDto>();
-		List<Flight> letovi=lr.findAll();
-		for(Flight f: letovi) {
-			getFlightsDto let=new getFlightsDto(f);
+	ResponseEntity<List<FlightsDto>> getAllFlights(){
+		List<FlightsDto> gdto=new ArrayList<FlightsDto>();
+		List<Flight> letovi=lr.findAllFlights();
+		for(Flight f : letovi) {
+			FlightsDto let=new FlightsDto(f);
 			gdto.add(let);
 		}
-		return new ResponseEntity<List<getFlightsDto>>(gdto, HttpStatus.OK);
+		return new ResponseEntity<List<FlightsDto>>(gdto, HttpStatus.OK);
 	}
 
 }

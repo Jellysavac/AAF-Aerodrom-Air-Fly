@@ -1,7 +1,7 @@
 package airfly.dto;
 import model.Flight;
 
-public class getFlightsDto {
+public class FlightsDto {
 
 	private String datum;
 	private int broj_mesta;
@@ -10,7 +10,7 @@ public class getFlightsDto {
 	private String nazivDolaznog;
 	private String kompanija;
 	
-	public getFlightsDto(Flight let) {
+	public FlightsDto(Flight let) {
 		
 		datum=let.getDatum();
 		broj_mesta=let.getBrojMesta();
