@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import Login from "./Login";
+import Register from './Register';
 import * as serviceWorker from "./serviceWorker";
 import { Route } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
