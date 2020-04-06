@@ -7,11 +7,13 @@ import * as serviceWorker from "./serviceWorker";
 import { Route } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import LetComponent from "./LetComponent";
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Route path="/" component={App} />
       <Route path="/login" component={Login} />
+      <Route path='/register' component={Register} />
     </Router>
     <LetComponent> </LetComponent>
   </React.StrictMode>,
