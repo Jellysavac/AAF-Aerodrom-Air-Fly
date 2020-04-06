@@ -1,45 +1,52 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
+import axios from "axios";
+import 'mdbreact/dist/css/mdb.css';
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 
 export default class LetComponent extends React.Component {
   state = {
-    letovi: []
-  }
+    flights: []
+}
 
-  componentDidMount() {
-    axios.get(`http://localhost:8080/AirFly/let/getAllFlights`)
-      .then(res => {
-        const letovi = res.data;
-        this.setState({ letovi });
-      })
-  }
+componentDidMount(){
+    axios.get('http://localhost:8080/AirFly/let/getAllFlights')
+    .then(res => {
+        const flights = res.data;
+        this.setState({flights});
+    })
+}
 
-  render() {
-    return (
+render() {
+    return(
         <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Datum</th>
-            <th>Broj mesta</th>
-            <th>Vrsta</th>
-            <th>Naziv Polaznog Aerodroma</th>
-            <th>Naziv Dolaznog Aerodroma</th>
-            <th>Kompanija</th>
-          </tr>
-        </thead>
-        <tbody>
-
+            <thead>
             <tr>
-        { this.state.letovi.map(flight => <td>{flight.datum}</td>)}
-          
-          </tr>
-          
+                <th>Datum leta</th>
+                <th>Broj mesta</th>
+                <th>Vrsta leta</th>
+                <th>Polazni Aerodrom</th>
+                <th>Dolazni aerodrom</th>
+                <th>Kompanija</th>
+            </tr>
+            </thead>
+            <tbody>
+               {this.state.flights.map((data, key) => {
+                   return(
+                       <tr key={key}>
+                            <td>{data.datum}</td>
+                            <td>{data.broj_mesta}</td>
+                            <td>{data.vrsta}</td>
+                            <td>{data.nazivPolaznog}</td>
+                            <td>{data.nazivDolaznog}</td>
+                            <td>{data.kompanija}</td>
+                       </tr>
+                   )
+               })}
+                
         </tbody>
-      </Table>
+        </Table>
     )
-  }
+}
 }
