@@ -3,7 +3,7 @@ import axios from "axios";
 import 'mdbreact/dist/css/mdb.css';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
+
 
 export default class LetComponent extends React.Component {
   state = {

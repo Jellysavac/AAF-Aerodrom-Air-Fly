@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 class Login extends Component {
     state = {

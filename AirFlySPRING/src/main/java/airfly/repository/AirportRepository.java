@@ -10,7 +10,7 @@ import model.Airport;
 
 public interface AirportRepository extends JpaRepository<Airport, Integer> {
 	
-	@Query(value = "select airport.naziv, city.naziv from airport inner join city on airport.grad_id=city.id", nativeQuery = true)
+	@Query(value = "select * from airport a inner join city c on a.grad_id=c.id", nativeQuery = true)
 	List<Airport> findAllAirports();
 	
 }
