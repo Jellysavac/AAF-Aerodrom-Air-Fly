@@ -13,8 +13,8 @@ ReactDOM.render(
    <Router>
      <Switch>
         <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/>
         <Route exatc path="/" component={App} />
-        <Route path='/register' component={Register} />
       </Switch>
       </Router>
      <LetComponent></LetComponent>

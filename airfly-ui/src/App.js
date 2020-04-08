@@ -23,7 +23,9 @@ class App extends Component {
         </NavDropdown>
       </Nav>
       <Nav>
-        <Nav.Link href="#deets">Register</Nav.Link>
+        <Nav.Link href="/register">
+          Register
+        </Nav.Link>
         <Nav.Link eventKey={2} href="/login">
          Login
         </Nav.Link>
