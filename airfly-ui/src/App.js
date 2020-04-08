@@ -1,12 +1,28 @@
 import React, {Component} from 'react';
+import axios from "axios";
+import Table from 'react-bootstrap/Table';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 class App extends Component {
+  
+  state = {
+    flights: []
+}
+
+componentDidMount(){
+    axios.get('http://localhost:8080/AirFly/let/getAllFlights')
+    .then(res => {
+        const flights = res.data;
+        this.setState({flights});
+    })
+}
+
   render(){
   return (
+    <div>
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
     <Navbar.Brand href="#home">Air Fly</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -32,6 +48,34 @@ class App extends Component {
       </Nav>
     </Navbar.Collapse>
   </Navbar>
+    <Table striped bordered hover>
+    <thead>
+    <tr>
+        <th>Datum leta</th>
+        <th>Broj mesta</th>
+        <th>Vrsta leta</th>
+        <th>Polazni Aerodrom</th>
+        <th>Dolazni aerodrom</th>
+        <th>Kompanija</th>
+    </tr>
+    </thead>
+    <tbody>
+       {this.state.flights.map((data, key) => {
+           return(
+               <tr key={key}>
+                    <td>{data.datum}</td>
+                    <td>{data.broj_mesta}</td>
+                    <td>{data.vrsta}</td>
+                    <td>{data.nazivPolaznog}</td>
+                    <td>{data.nazivDolaznog}</td>
+                    <td>{data.kompanija}</td>
+               </tr>
+           )
+       })}
+        
+</tbody>
+</Table>
+</div>
   );
   }
 }

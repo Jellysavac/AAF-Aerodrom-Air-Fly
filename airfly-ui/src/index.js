@@ -6,7 +6,6 @@ import Login from "./Login";
 import Register from './Register';
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LetComponent from "./LetComponent";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +16,6 @@ ReactDOM.render(
         <Route exatc path="/" component={App} />
       </Switch>
       </Router>
-     <LetComponent></LetComponent>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -3,8 +3,6 @@ import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { register } from './serviceWorker';
 
 class Register extends Component {
     constructor(props) {
@@ -25,7 +23,7 @@ class Register extends Component {
 
     handleSubmit(event) {
         axios
-            .post('http://localhost:8080/AirFly/auth/register',
+            .post('http://localhost:8080/AirFly/user/register',
                 {name: this.state.name, surname: this.state.surname, email: this.state.email, password: this.state.password, password_confirm: this.state.password_confirm})
             .then(response => {
                 console.log("registration response", response);
