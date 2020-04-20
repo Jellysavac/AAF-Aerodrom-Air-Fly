@@ -3,7 +3,7 @@ import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import {MdEmail, MdLock, MdLocalAirport} from "react-icons/md"
 
 class Login extends Component {
     state = {
@@ -24,7 +24,12 @@ class Login extends Component {
         .then(response => {
           console.log(response);
           console.log(response.data);
-          this.props.history.push('/');
+          if(response.data.uloga==="ROLE_USER"){
+            this.props.history.push('/');
+          }
+          else{
+            this.props.history.push('/admin');
+          }
         })
         .catch(function(error){
           if(error.response.status===401){
@@ -34,40 +39,38 @@ class Login extends Component {
         });
       }
 
-    onSubmit = () => {
-      this.props.history.push('/');
-     }
 
-    render() {
-        
+    render() {       
         return (
             <div
             style={{
                 position: 'absolute', left: '50%', top: '50%',
                 transform: 'translate(-50%, -50%)'
             }}>
-            <MDBContainer>
-            <MDBRow>
-              <MDBCol md="18">
-                <form onSubmit={this.handleSubmit}>
-                  <p className="h4 text-center mb-4">Sign in</p>
-                  <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-                    Your email
-                  </label>
-                  <input type="email" id="defaultFormLoginEmailEx" className="form-control" name="email" onChange={this.handleChange} />
-                  <br />
-                  <label htmlFor="defaultFormLoginPasswordEx" className="grey-text" >
-                    Your password
-                  </label>
-                  <input type="password" id="defaultFormLoginPasswordEx" className="form-control" name="lozinka" onChange={this.handleChange} />
-                  <div className="text-center mt-4">
-                    <MDBBtn color="indigo" type="submit" >Login</MDBBtn>                  
-                  </div>
-                </form>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-          </div>
+              <MDBContainer>
+                <MDBRow>
+                  <MDBCol md="18">
+                    <form onSubmit={this.handleSubmit}>
+                      <h1><MdLocalAirport/> AIR FLY</h1>
+                      <br/><br/>
+                      <p className="h4 text-center mb-4">Prijavljivanje</p>
+                      <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+                        <MdEmail/> Email
+                      </label>
+                      <input type="email" id="defaultFormLoginEmailEx" className="form-control" name="email" onChange={this.handleChange} />
+                      <br />
+                      <label htmlFor="defaultFormLoginPasswordEx" className="grey-text" >
+                        <MdLock/> Lozinka
+                      </label>
+                      <input type="password" id="defaultFormLoginPasswordEx" className="form-control" name="lozinka" onChange={this.handleChange} />
+                      <div className="text-center mt-4">
+                        <MDBBtn color="indigo" type="submit">Prijavi se</MDBBtn>
+                      </div>
+                    </form>
+                  </MDBCol>
+                </MDBRow>
+              </MDBContainer>
+            </div>
         );
     }
 }
