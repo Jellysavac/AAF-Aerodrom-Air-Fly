@@ -9,7 +9,7 @@ class HomeUser extends Component{
     render(){
         return(
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/"><MdLocalAirport/> Air Fly</Navbar.Brand>
+            <Navbar.Brand href="/user"><MdLocalAirport/> Air Fly</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
