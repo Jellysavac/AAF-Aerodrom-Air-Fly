@@ -25,7 +25,7 @@ class Login extends Component {
           console.log(response);
           console.log(response.data);
           if(response.data.uloga==="ROLE_USER"){
-            this.props.history.push('/');
+            this.props.history.push('/user');
           }
           else{
             this.props.history.push('/admin');

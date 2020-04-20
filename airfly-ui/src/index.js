@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import Login from "./Login";
 import Register from './Register';
+import HomeUser from './HomeUser';
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ ReactDOM.render(
      <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
+        <Route path="/user" component={HomeUser} />
         <Route exatc path="/" component={App} />
       </Switch>
       </Router>
