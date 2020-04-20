@@ -2,7 +2,8 @@ package airfly.dto;
 import model.Flight;
 
 public class FlightsDto {
-
+	
+	private int id;
 	private String datum;
 	private int broj_mesta;
 	private String vrsta;
@@ -11,7 +12,7 @@ public class FlightsDto {
 	private String kompanija;
 	
 	public FlightsDto(Flight let) {
-		
+		id = let.getId();
 		datum=let.getDatum();
 		broj_mesta=let.getBrojMesta();
 		vrsta=let.getVrsta();
@@ -20,6 +21,16 @@ public class FlightsDto {
 		kompanija=let.getCompany().getNaziv();
 		
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 
 	public String getDatum() {
 		return datum;
