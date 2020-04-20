@@ -39,7 +39,7 @@ public class TicketController {
 			AddTicketResponseDto dto = new AddTicketResponseDto(ticket);
 			return new ResponseEntity<AddTicketResponseDto>(dto, HttpStatus.OK);
 		}catch(Exception e) {
-			return new ResponseEntity<String>("Neuspesno dodavanje! " + e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Neuspesno dodavanje nove karte! " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }
