@@ -51,7 +51,6 @@ class HomeUser extends Component{
             <th>Polazni aerodrom</th>
             <th>Dolazni aerodrom</th>
             <th>Kompanija</th>
-            <th>Link za rezervaciju</th>
         </tr>
         </thead>
         <tbody>
@@ -62,8 +61,7 @@ class HomeUser extends Component{
                         <td>{data.vrsta}</td>
                         <td>{data.nazivPolaznog}</td>
                         <td>{data.nazivDolaznog}</td>
-                        <td>{data.kompanija}</td>
-                        <td><a href="#" class="stretched-link">Rezerviši kartu</a></td>
+                        <td>{data.kompanija}</td>  
                    </tr>
                )
            })}
