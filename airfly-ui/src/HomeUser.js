@@ -13,14 +13,18 @@ import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport} from "react-
 class HomeUser extends Component{
 
     state = {
-        flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: []
+        flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: [],tickets:[]
     }
     
     componentDidMount(){
-        axios.get('http://localhost:8080/AirFly/aerodrom/airports')
-        .then(res => {
-            const airports = res.data;
-            this.setState({airports});
+      Promise.all([
+        axios.get('http://localhost:8080/AirFly/aerodrom/airports'),
+        axios.get('http://localhost:8080/AirFly/ticket/getCheapestTicket')
+      ])
+        
+        .then(([res,resTicket]) => {
+          console.log(resTicket.data)
+          this.setState({airports:res.data,ticket:resTicket.data});
         })
     }
     
@@ -90,6 +94,36 @@ class HomeUser extends Component{
             </Nav>
             </Navbar.Collapse>
             </Navbar>
+
+            <br/>
+            <h4>Najpovoljnije karte</h4>
+            <Table striped bordered hover>
+        <thead>
+        <tr>
+            <th>Klasa</th>
+            <th>Cena</th>
+            <th>Polazni aerodrom</th>
+            <th>Dolazni aerodrom</th>
+            <th>Datum</th>
+        </tr>
+        </thead>
+        <tbody>
+           {this.state.tickets.map((dataT, keyT) => {
+               return(
+                   <tr key={keyT}>
+                        <td>{dataT.klasa}</td>
+                        <td>{dataT.cena}</td>
+                        <td>{dataT.polazniAerodrom}</td>
+                        <td>{dataT.dolazniAerodrom}</td>
+                        <td>{dataT.datum}</td>  
+                   </tr>
+               )
+    })}
+        
+      </tbody>
+
+      </Table>
+
              <br/>
              <Form onSubmit={this.handleSubmit}>
                <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>

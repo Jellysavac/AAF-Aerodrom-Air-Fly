@@ -6,6 +6,7 @@ import Login from "./Login";
 import Register from './Register';
 import HomeUser from './HomeUser';
 import AvioPrevoznici from './AvioPrevoznici';
+import Admin from './Admin';
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/register" component={Register}/>
         <Route path="/user" component={HomeUser} />
         <Route path="/avioprevoznici" component={AvioPrevoznici} />
+        <Route path="/admin" component={Admin}/>
         <Route exatc path="/" component={App} />
       </Switch>
       </Router>
