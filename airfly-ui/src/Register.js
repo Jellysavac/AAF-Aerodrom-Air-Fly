@@ -24,7 +24,7 @@ class Register extends Component {
     handleSubmit(event) {
         axios
             .post('http://localhost:8080/AirFly/user/register',
-                {name: this.state.name, surname: this.state.surname, email: this.state.email, password: this.state.password, password_confirm: this.state.password_confirm})
+                {name: this.state.name, surname: this.state.surname, adress: this.state.adress, email: this.state.email, password: this.state.password})
             .then(response => {
                 console.log("registration response", response);
             })
@@ -47,11 +47,16 @@ class Register extends Component {
                     <MDBRow>
                         <MDBCol md="18">
                             <form onSubmit={this.handleSubmit}>
-                                <input type="name" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} required />
-                                <input type="surname" name="surname" placeholder="Surname" value={this.state.surname} onChange={this.handleChange} required />
-                                <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required />
-                                <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
-                                <input type="password_confirm" name="password_confirm" placeholder="Password confirmation" value={this.state.password_confirm} onChange={this.handleChange} required />
+                                <p className="h4 text-center mb-4">Create a new account</p>
+                                <label htmlFor="name" className="grey-text">
+                                     Name:
+                                </label>
+                                <input id="name" type="name" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} required />
+                                <input id="surname" type="surname" name="surname" placeholder="Surname" value={this.state.surname} onChange={this.handleChange} required />
+                                <input id="adress" type="adress" name="adress" placeholder="Adress" value={this.state.adress} onChange={this.handleChange} required />
+                                <input id="email" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required />
+                                <input id="password" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
+                                <input id="password_confirm" type="password_confirm" name="password_confirm" placeholder="Password confirmation" value={this.state.password_confirm} onChange={this.handleChange} required />
                                 <div className="text-center mt-4">
                                     <MDBBtn color="indigo" type="submit">Register</MDBBtn>                  
                                 </div>
