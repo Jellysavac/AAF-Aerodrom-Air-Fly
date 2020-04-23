@@ -58,7 +58,7 @@ class AvioPrevoznici extends Component{
         return(
             <div>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="/admin"><MdLocalAirport/> Air Fly</Navbar.Brand>
+          <Navbar.Brand href="/user"><MdLocalAirport/> Air Fly</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">

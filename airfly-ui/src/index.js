@@ -7,6 +7,7 @@ import Register from './Register';
 import HomeUser from './HomeUser';
 import AvioPrevoznici from './AvioPrevoznici';
 import Admin from './Admin';
+import Rezervacija from './Rezervacija';
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route path="/user" component={HomeUser} />
         <Route path="/avioprevoznici" component={AvioPrevoznici} />
         <Route path="/admin" component={Admin}/>
+        <Route path="/rezervacija" component={Rezervacija} />
         <Route exatc path="/" component={App} />
       </Switch>
       </Router>

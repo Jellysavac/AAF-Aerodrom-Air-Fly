@@ -13,8 +13,8 @@ public class GetCheapestTicketDto {
 	public GetCheapestTicketDto(Ticket karta) {
 		klasa=karta.getKlasa();
 		cena=karta.getCena();
-		polazniAerodrom=karta.getFlight().getAirport1().getSkracenica();
-		dolazniAerodrom=karta.getFlight().getAirport2().getSkracenica();
+		polazniAerodrom=karta.getFlight().getAirport1().getNaziv();
+		dolazniAerodrom=karta.getFlight().getAirport2().getNaziv();
 		datum=karta.getFlight().getDatum();
 					
 	}
