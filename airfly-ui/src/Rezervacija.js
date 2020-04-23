@@ -73,52 +73,47 @@ class Rezervacija extends Component{
     render(){
         return(
             <div>
-                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/user"><MdLocalAirport/> Air Fly</Navbar.Brand>
-            <Navbar.Brand>Rezervacija karata</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-            <Nav.Link href="/avioprevoznici">Avio prevoznici</Nav.Link>
-                
-            </Nav>
-            
-            <Nav>
-              <Nav.Link eventKey={2} href="/">
-               Logout <FiLogOut/>
-              </Nav.Link>
-            </Nav>
-            </Navbar.Collapse>
-            </Navbar>
-            <br/>
-            <Form onSubmit={this.handleSubmit}>
-               <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
-                 <Form.Group as={Col} controlId="formGridKlasa">
-                   <Form.Label><MdFlightTakeoff/>  Polazni aerodrom</Form.Label>
-                   <Form.Control as="select" value={this.state.polazniAerodrom} onChange={(e) => this.setState({polazniAerodrom: e.target.value})}>
-                     <option>Izaberite polazni aerodrom</option>
-                     {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
-                   </Form.Control>
-                 </Form.Group>
-       
-                 <Form.Group as={Col} controlId="formGridCena">
-                   <Form.Label><MdFlightLand/> Dolazni aerodrom</Form.Label>
-                   <Form.Control as="select" value={this.state.dolazniAerodrom} onChange={(e) => this.setState({dolazniAerodrom: e.target.value})}>
-                     <option>Izaberite dolazni aerodorm</option>
-                     {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
-                   </Form.Control>
-                 </Form.Group>
-       
-                 <Form.Group as={Col} controlId="formGridLet">
-                   <Form.Label><MdDateRange/> Datum</Form.Label>
-                   <Form.Control type="date"  value={this.state.datum} onChange={(e) => this.setState({datum: e.target.value})} />
-                 </Form.Group>
-       
-                 <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }><FaSearch/></Button>
-                   {this.state.showTable ? this.showTable() : null}
-               </Form.Row>
-             </Form> 
-             </div>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Brand href="/user"><MdLocalAirport/> Air Fly</Navbar.Brand>
+                    <Navbar.Brand>Rezervacija karata</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="/avioprevoznici">Avio prevoznici</Nav.Link>
+                        </Nav>
+                        <Nav>
+                            <Nav.Link eventKey={2} href="/">
+                                Logout <FiLogOut/>
+                            </Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <br/>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
+                        <Form.Group as={Col} controlId="formGridKlasa">
+                            <Form.Label><MdFlightTakeoff/>  Polazni aerodrom</Form.Label>
+                            <Form.Control as="select" value={this.state.polazniAerodrom} onChange={(e) => this.setState({polazniAerodrom: e.target.value})}>
+                                <option>Izaberite polazni aerodrom</option>
+                                {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
+                            </Form.Control>
+                        </Form.Group>  
+                        <Form.Group as={Col} controlId="formGridCena">
+                            <Form.Label><MdFlightLand/> Dolazni aerodrom</Form.Label>
+                            <Form.Control as="select" value={this.state.dolazniAerodrom} onChange={(e) => this.setState({dolazniAerodrom: e.target.value})}>
+                                <option>Izaberite dolazni aerodorm</option>
+                                {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formGridLet">
+                            <Form.Label><MdDateRange/> Datum</Form.Label>
+                            <Form.Control type="date"  value={this.state.datum} onChange={(e) => this.setState({datum: e.target.value})} />
+                        </Form.Group>
+                        <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }><FaSearch/></Button>
+                            {this.state.showTable ? this.showTable() : null}
+                    </Form.Row>
+                </Form> 
+            </div>
         )
     }
 }
