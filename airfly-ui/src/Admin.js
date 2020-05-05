@@ -80,6 +80,10 @@ showFormForTicket = () => {
         );
 }
 
+logout = () =>{
+    localStorage.removeItem("tokens")
+}
+
     render(){
         return(
             <div>
@@ -91,7 +95,7 @@ showFormForTicket = () => {
           <Navbar.Brand>Administratorski panel</Navbar.Brand>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={2} href="/login">
+          <Nav.Link eventKey={2} href="/" onClick={this.logout}>
             Logout <FiLogOut/>
           </Nav.Link>
           </Nav>

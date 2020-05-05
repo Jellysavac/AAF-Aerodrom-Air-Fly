@@ -53,6 +53,9 @@ class AvioPrevoznici extends Component{
     )
     }
     
+    logout = () =>{
+        localStorage.removeItem("tokens")
+    }
 
     render(){
         return(
@@ -66,7 +69,7 @@ class AvioPrevoznici extends Component{
           <Nav.Link href="/rezervacija">Rezervacije</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={2} href="/">
+          <Nav.Link eventKey={2} href="/" onClick={this.logout}>
             Logout <FiLogOut/>
           </Nav.Link>
           </Nav>
