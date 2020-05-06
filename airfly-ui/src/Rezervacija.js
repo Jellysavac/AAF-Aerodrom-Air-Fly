@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import { FaSearch } from "react-icons/fa";
-import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport} from "react-icons/md"
+import {IoIosPerson} from 'react-icons/io'
+import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport, MdEventSeat} from "react-icons/md"
+import Modal from 'react-bootstrap/Modal'
 
 class Rezervacija extends Component{
 
@@ -39,6 +41,28 @@ class Rezervacija extends Component{
         });
       
       }
+
+      showTicket = (e) => {
+        const data = JSON.parse(e.currentTarget.getAttribute("data-item"));
+        const user = localStorage.getItem("tokens")
+        console.log(data)
+        console.log(user)
+
+        return(
+            <Modal.Dialog>
+                <Modal.Header closeButton>
+                    <Modal.Title>Vaša karta</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {data.id}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary">Poništi</Button>
+                    <Button variant="primary">Rezerviši</Button>
+                </Modal.Footer>
+            </Modal.Dialog>
+        )
+      }
       
       showTable = () => {
         return(
@@ -55,7 +79,7 @@ class Rezervacija extends Component{
           <tbody>
              {this.state.flights.map((data, key) => {
                  return(
-                     <tr key={key}>
+                     <tr key={key} data-item={JSON.stringify(data)} onClick={this.showTicket}>
                           <td>{data.datum}</td>
                           <td>{data.vrsta}</td>
                           <td>{data.nazivPolaznog}</td>
@@ -113,9 +137,23 @@ class Rezervacija extends Component{
                             <Form.Label><MdDateRange/> Datum</Form.Label>
                             <Form.Control type="date"  value={this.state.datum} onChange={(e) => this.setState({datum: e.target.value})} />
                         </Form.Group>
-                        <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }><FaSearch/></Button>
+                        </Form.Row>
+                        <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
+                        <Form.Group as={Col} controlId="formGridBrojPutnika">
+                            <Form.Label><IoIosPerson/> Putnici</Form.Label>
+                            <Form.Control type="number" min="1" value={this.state.putnici} onChange={(e) => this.setState({putnici: e.target.value})} />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formGridKlasa">
+                            <Form.Label><MdEventSeat /> Klasa</Form.Label>
+                            <Form.Control as="select" value={this.state.klasa} onChange={(e) => this.setState({klasa: e.target.value})}>
+                                <option>Ekonomska</option>
+                                <option>Biznis</option>
+                            </Form.Control>
+                        </Form.Group>
+                        </Form.Row>
+                        <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }>Pretraži letove</Button>
                             {this.state.showTable ? this.showTable() : null}
-                    </Form.Row>
+                    
                 </Form> 
             </div>
         )
