@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn} from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {MdEmail, MdLock, MdLocalAirport, MdAccountCircle} from "react-icons/md";
+import { useAuth } from "./context/auth";
+import { Redirect } from "react-router-dom";
+import { Error } from "./components/AuthForms";
 
 class Register extends Component {
+
     constructor(props) {
         super(props);
         
@@ -12,26 +16,37 @@ class Register extends Component {
             name: "",
             surname: "",
             email: "",
+            adress: "",
             password: "",
             password_confirm: "",
-            error: ""
+            response: ""
         }
-        
+
+        this.status = {
+            succsess: "",
+            failed: ""
+        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     }
 
     handleSubmit(event) {
+        event.preventDefault();
         axios
             .post('http://localhost:8080/AirFly/user/register',
-                {name: this.state.name, surname: this.state.surname, adress: this.state.adress, email: this.state.email, password: this.state.password})
+                {name: this.state.name, surname: this.state.surname, email: this.state.email, adress: this.state.adress, password: this.state.password})
             .then(response => {
-                console.log("registration response", response);
+                console.log("SUCCSESS: ", response);
+                alert("Registracija uspešna.");
+                this.status.succsess = response.state;
+                this.forceUpdateHandler();
             })
             .catch(error => {
-                console.log("registration error", error);
+                console.log("FAILED: ", error);
+                this.status.failed = error.state;
             });
-        event.preventDefault();
     }
 
     handleChange(event) {
@@ -40,32 +55,67 @@ class Register extends Component {
         });
     }
 
+    forceUpdateHandler(){
+      //  console.log("ovde sam stigao");
+      //  setTimeout(function(){forceUpdate(); },3000);
+      //  console.log("ovde nisam sam stigao");
+    };
+
     render() { 
-        return (
-            <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-                <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="18">
-                            <form onSubmit={this.handleSubmit}>
-                                <p className="h4 text-center mb-4">Create a new account</p>
-                                <label htmlFor="name" className="grey-text">
-                                     Name:
-                                </label>
-                                <input id="name" type="name" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} required />
-                                <input id="surname" type="surname" name="surname" placeholder="Surname" value={this.state.surname} onChange={this.handleChange} required />
-                                <input id="adress" type="adress" name="adress" placeholder="Adress" value={this.state.adress} onChange={this.handleChange} required />
-                                <input id="email" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required />
-                                <input id="password" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
-                                <input id="password_confirm" type="password_confirm" name="password_confirm" placeholder="Password confirmation" value={this.state.password_confirm} onChange={this.handleChange} required />
-                                <div className="text-center mt-4">
-                                    <MDBBtn color="indigo" type="submit">Register</MDBBtn>                  
-                                </div>
-                            </form>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
-            </div>
-        );
+        if (this.status.succsess===200) {
+            return (<Redirect to="/login" />);
+        }
+            return (
+                <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
+                    <MDBContainer>
+                        <MDBRow>
+                            <MDBCol md="18">
+                                <form onSubmit={this.handleSubmit}>
+                                    <center><h1 ><MdLocalAirport />AIR FLY</h1></center>
+                                    <br/>
+                                    <p className="h4 text-center mb-4">Registracija</p>
+                                    <span style = {{display:'inline'}}>
+                                        <label htmlFor="name" className="grey-text">
+                                        <MdAccountCircle/> Ime:
+                                        </label>
+                                        <input id="name" type="name" name="name" className="form-control" value={this.state.name} onChange={this.handleChange} required />
+                                        <label htmlFor="surname" className="grey-text">
+                                        <MdAccountCircle/> Prezime:
+                                        </label>
+                                        <input id="surname" type="surname" name="surname" className="form-control" value={this.state.surname} onChange={this.handleChange} required />
+                                    </span>
+                                    <br/>
+                                    <span style = {{display:'inline'}}>
+                                    <label htmlFor="email" className="grey-text">
+                                        <MdEmail/> Email:
+                                        </label>
+                                        <input id="email" type="email" name="email" className="form-control" value={this.state.email} onChange={this.handleChange} required />
+                                        <label htmlFor="adress" className="grey-text">
+                                        <MdEmail/> Adresa:
+                                        </label>
+                                        <input id="adress" type="adress" name="adress" className="form-control" value={this.state.adress} onChange={this.handleChange} required />
+                                    </span>
+                                    <br/>
+                                    <span style = {{display:'inline'}}>
+                                        <label htmlFor="password" className="grey-text">
+                                        <MdLock/> Lozinka:
+                                        </label>
+                                        <input id="password" type="password" name="password" className="form-control" value={this.state.password} onChange={this.handleChange} required />
+                                        <label htmlFor="passo" className="grey-text">
+                                        <MdLock/> Potvrdite lozinku:
+                                        </label>
+                                        <input id="password_confirm" type="password" name="password_confirm" className="form-control" value={this.state.password_confirm} onChange={this.handleChange} required />
+                                    </span>
+                                    <br/>
+                                    <div className="text-center mt-4">
+                                        <MDBBtn color="indigo" type="submit">Register</MDBBtn>                  
+                                    </div>
+                                </form>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBContainer>
+                </div>           
+            );
     }
 }
 export default Register

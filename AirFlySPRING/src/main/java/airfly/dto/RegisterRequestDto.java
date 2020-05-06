@@ -1,9 +1,9 @@
 package airfly.dto;
 
 
-public class RegisterDto {
+public class RegisterRequestDto {
 	
-	public RegisterDto() {
+	public RegisterRequestDto() {
 		super();
 	}
 	
@@ -45,5 +45,3 @@ public class RegisterDto {
 		this.password = password;
 	}
 }
-
-

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airfly.dto.LoginRequestDto;
 import airfly.dto.LoginResponseDto;
+import airfly.dto.RegisterRequestDto;
+import airfly.dto.RegisterResponseDto;
 import airfly.dto.UserDto;
 import airfly.repository.UserRepository;
 import model.Userr;
@@ -53,5 +55,23 @@ public class UserController {
 	}
 	
 	
-//	@PostMappingI("/register")
+	@PostMapping("/register")
+	ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequestDto request) {
+		try {
+			Userr u = new Userr();
+			u.setIme(request.getName());
+			u.setPrezime(request.getSurname());
+			u.setEmail(request.getEmail());
+			u.setAdresa(request.getAdress());
+			u.setLozinka(request.getPassword());
+			u.setReservations(null);
+			u.setUloga("ROLE_USER");
+			ur.save(u);
+			return new ResponseEntity<RegisterResponseDto>(HttpStatus.OK);
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+			return new ResponseEntity<String>("Error!" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

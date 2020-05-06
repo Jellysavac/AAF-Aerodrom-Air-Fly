@@ -1,23 +1,12 @@
 package airfly.dto;
 
-import model.Userr;
-
 public class RegisterResponseDto {
 
-	private int id;
+	private String HTTPRESPONCE;
 	
-	public RegisterResponseDto(Userr u) {
+	public RegisterResponseDto(String status) {
 		
-		id = u.getId();
+		status = HTTPRESPONCE;
 		
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 }
