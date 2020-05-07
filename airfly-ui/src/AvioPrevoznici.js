@@ -66,7 +66,7 @@ class AvioPrevoznici extends Component{
           <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
           <Navbar.Brand>Avio prevoznici</Navbar.Brand>
-          <Nav.Link href="/rezervacija">Rezervacije</Nav.Link>
+          <Nav.Link href="/rezervacija">Rezervacija karata</Nav.Link>
           </Nav>
           <Nav>
           <Nav.Link eventKey={2} href="/" onClick={this.logout}>

@@ -1,5 +1,7 @@
 package airfly.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +40,7 @@ public class ReservationController {
 	LetRepository lr;
 	
 	@PostMapping("/addReservation")
-	ResponseEntity<?> addReservation(@RequestBody AddReservationRequestDto request){
+	ResponseEntity<?> addReservation(@Valid @RequestBody AddReservationRequestDto request){
 		try {
 			Reservation r = new Reservation();
 			r.setBrojaKarata(request.getBrojKarata());

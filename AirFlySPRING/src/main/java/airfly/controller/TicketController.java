@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import airfly.dto.AddTicketRequestDto;
 import airfly.dto.AddTicketResponseDto;
 import airfly.dto.GetCheapestTicketDto;
+import airfly.dto.GetTicketPriceRequestDto;
+import airfly.dto.GetTicketPriceResponseDto;
 import airfly.repository.LetRepository;
 import airfly.repository.TicketRepository;
 import model.Flight;
@@ -57,5 +59,12 @@ public class TicketController {
 			tdto.add(dto);	
 		}
 		return new ResponseEntity<List<GetCheapestTicketDto>>(tdto,HttpStatus.OK);
+	}
+	
+	@PostMapping("/getTicketPrice")
+	ResponseEntity<GetTicketPriceResponseDto> getTicketPrice(@RequestBody GetTicketPriceRequestDto request){
+		Ticket t = tr.findTicketByParams(request.getIdLeta(), request.getKlasa());
+		GetTicketPriceResponseDto dto = new GetTicketPriceResponseDto(t);
+		return new ResponseEntity<GetTicketPriceResponseDto>(dto, HttpStatus.OK);
 	}
 }

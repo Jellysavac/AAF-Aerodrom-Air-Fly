@@ -1,7 +1,9 @@
 package airfly.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class AddReservationRequestDto {
-	
+	@NotNull
 	private int brojKarata;
 	private int idKarte;
 	private int idKorisnika;

@@ -25,4 +25,7 @@ public interface LetRepository extends JpaRepository<Flight, Integer> {
 	@Transactional
 	@Query(value = "UPDATE flight f SET broj_mesta=broj_mesta-:brojKarata WHERE f.id=:id", nativeQuery = true)
 	int updateBrojMesta(@Param("brojKarata") int brojKarata, @Param("id") int id);
+	
+	@Query(value = "SELECT * FROM (((flight as f INNER JOIN airport as a1 on a1.id=f.polazni_aerodrom_id) INNER JOIN airport as a2 on a2.id=f.dolazni_aerodrom_id) INNER JOIN company as c on c.id=f.company_id) WHERE a1.naziv=:polazniAerodrom AND a2.naziv=:dolazniAerodrom AND f.datum=:datum AND f.broj_mesta>=:putnici", nativeQuery = true)
+	List<Flight> getFlightsByParamsForReservation(@Param("polazniAerodrom") String polazniAerodrom, @Param("dolazniAerodrom") String dolazniAerodrom, @Param("datum") String datum, @Param("putnici") int brojPutnika);
 }

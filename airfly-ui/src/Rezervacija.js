@@ -7,28 +7,34 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
-import { FaSearch } from "react-icons/fa";
 import {IoIosPerson} from 'react-icons/io'
 import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport, MdEventSeat} from "react-icons/md"
 import Modal from 'react-bootstrap/Modal'
 
+
 class Rezervacija extends Component{
 
     state = {
-        flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: []
+        flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: [], putnici: null, klasa: "Ekonomska",
+        selectedRow:{}, showTicket:false, cena:{}, idLeta:""
     }
 
     componentDidMount(){
-        axios.get('http://localhost:8080/AirFly/aerodrom/airports')
+        
+            axios.get('http://localhost:8080/AirFly/aerodrom/airports')
+            
+        
         .then(res => {
-            this.setState({airports:res.data})
+            this.setState({airports: res.data});
         })
     }
+
+   
 
     handleSubmit = event => {
         event.preventDefault();
       
-        axios.post('http://localhost:8080/AirFly/let/getAllFlightsByParams', {polazniAerodrom: this.state.polazniAerodrom, dolazniAerodrom: this.state.dolazniAerodrom, datum: this.state.datum})
+        axios.post('http://localhost:8080/AirFly/let/getAllFlightsForReservation', {polazniAerodrom: this.state.polazniAerodrom, dolazniAerodrom: this.state.dolazniAerodrom, datum: this.state.datum, brojPutnika: this.state.putnici})
         .then(res => {
           console.log(res.data);
           if(res.data.length===0){
@@ -42,33 +48,17 @@ class Rezervacija extends Component{
       
       }
 
-      showTicket = (e) => {
-        const data = JSON.parse(e.currentTarget.getAttribute("data-item"));
-        const user = localStorage.getItem("tokens")
-        console.log(data)
-        console.log(user)
+      
 
-        return(
-            <Modal.Dialog>
-                <Modal.Header closeButton>
-                    <Modal.Title>Vaša karta</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {data.id}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary">Poništi</Button>
-                    <Button variant="primary">Rezerviši</Button>
-                </Modal.Footer>
-            </Modal.Dialog>
-        )
-      }
       
       showTable = () => {
         return(
+            <div>
           <Table striped bordered hover>
           <thead>
           <tr>
+
+              <th>#</th>
               <th>Datum leta</th>
               <th>Vrsta leta</th>
               <th>Polazni aerodrom</th>
@@ -79,24 +69,73 @@ class Rezervacija extends Component{
           <tbody>
              {this.state.flights.map((data, key) => {
                  return(
-                     <tr key={key} data-item={JSON.stringify(data)} onClick={this.showTicket}>
+                     <tr key={key} data-item={JSON.stringify(data)} onClick={() => {this.setState({selectedRow:data}); this.setState({showTicket: true})}}>
+                         <td>{data.id}</td>
                           <td>{data.datum}</td>
                           <td>{data.vrsta}</td>
-                          <td>{data.nazivPolaznog}</td>
-                          <td>{data.nazivDolaznog}</td>
+                          <td>{data.polazni}</td>
+                          <td>{data.dolazni}</td>
                           <td>{data.kompanija}</td>  
                      </tr>
+                     
                  )
              })}
               
         </tbody>
         </Table>
+        {this.state.showTicket ? this.showTicket() : null}
+        </div>
+        )  
+      }
+
+      getTicketPrice = () => {
+        axios.post('http://localhost:8080/AirFly/ticket/getTicketPrice', {idLeta: this.state.idLeta, klasa: this.state.klasa})
+        .then(res => {
+            console.log(res.data)
+            this.setState({cena: res.data})
+        })
+    }
+
+    handleSubmitReservation = event =>{
+        event.preventDefault();
+
+        axios.post('http://localhost:8080/AirFly/reservation/addReservation', {brojKarata: this.state.putnici, idKarte: this.state.selectedRow.id, idKorisnika: localStorage.getItem("tokens")})
+        .then(res =>{
+            console.log(res.data)
+            alert("Uspesna rezervacija")
+        }).catch(error=>{
+            alert("Neuspesna rezervacija")
+        })
+    }
+
+
+      showTicket = () => {
+        return(
+            <Modal.Dialog>
+                <Modal.Header >
+                    <Modal.Title>Vaša rezervacija</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                   <p>Polazni aerodrom: {this.state.selectedRow.polazni}<br/>
+                   Dolazni aerodrom: {this.state.selectedRow.dolazni}<br/>
+                   Datum: {this.state.selectedRow.datum}<br/>
+                   Avio-prevoznik: {this.state.selectedRow.kompanija}<br/>
+                   Broj karata: {this.state.putnici}<br/>
+                   Cena: 
+                   
+                   </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={()=>{this.setState({showTicket:false})}}>Poništi</Button>
+                    <Button variant="primary" onClick={this.handleSubmitReservation}>Rezerviši</Button>
+                </Modal.Footer>
+            </Modal.Dialog>
         )
       }
 
-    logout = () => {
-        localStorage.removeItem("tokens");
-    }
+      logout = () =>{
+          localStorage.removeItem("tokens")
+      }
 
     render(){
         return(
@@ -117,23 +156,24 @@ class Rezervacija extends Component{
                     </Navbar.Collapse>
                 </Navbar>
                 <br/>
+                
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
-                        <Form.Group as={Col} controlId="formGridKlasa">
+                        <Form.Group as={Col} controlId="formGridPolazni">
                             <Form.Label><MdFlightTakeoff/>  Polazni aerodrom</Form.Label>
                             <Form.Control as="select" value={this.state.polazniAerodrom} onChange={(e) => this.setState({polazniAerodrom: e.target.value})}>
                                 <option>Izaberite polazni aerodrom</option>
                                 {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
                             </Form.Control>
                         </Form.Group>  
-                        <Form.Group as={Col} controlId="formGridCena">
+                        <Form.Group as={Col} controlId="formGridDolazni">
                             <Form.Label><MdFlightLand/> Dolazni aerodrom</Form.Label>
                             <Form.Control as="select" value={this.state.dolazniAerodrom} onChange={(e) => this.setState({dolazniAerodrom: e.target.value})}>
                                 <option>Izaberite dolazni aerodorm</option>
                                 {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridLet">
+                        <Form.Group as={Col} controlId="formGridDatum">
                             <Form.Label><MdDateRange/> Datum</Form.Label>
                             <Form.Control type="date"  value={this.state.datum} onChange={(e) => this.setState({datum: e.target.value})} />
                         </Form.Group>
@@ -153,8 +193,9 @@ class Rezervacija extends Component{
                         </Form.Row>
                         <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }>Pretraži letove</Button>
                             {this.state.showTable ? this.showTable() : null}
-                    
+                   
                 </Form> 
+                
             </div>
         )
     }

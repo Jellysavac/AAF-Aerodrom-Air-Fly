@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import model.Ticket;
 
@@ -12,4 +13,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer>{
 	List<Ticket> findCheapestTickets();
 	
 	Ticket findById(int id);
+	
+	@Query(value = "SELECT * FROM ticket t WHERE t.let_id=:let_id AND t.klasa=:klasa", nativeQuery = true)
+	Ticket findTicketByParams(@Param("let_id") int id, @Param("klasa") String klasa);
 }

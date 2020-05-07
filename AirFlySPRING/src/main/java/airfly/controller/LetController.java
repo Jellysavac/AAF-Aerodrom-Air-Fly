@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airfly.dto.FlightForReservationRequsetDto;
+import airfly.dto.FlightForReservationResponseDto;
 import airfly.dto.FlightsDto;
 import airfly.dto.FlightsRequestDto;
 import airfly.repository.LetRepository;
@@ -47,6 +49,21 @@ public class LetController {
 				fdto.add(dto);
 			}
 			return new ResponseEntity<List<FlightsDto>>(fdto, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<String>("Nema letova "+e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PostMapping("/getAllFlightsForReservation")
+	ResponseEntity<?> getAllFlightsForReservation(@RequestBody FlightForReservationRequsetDto request){
+		try {
+			List<FlightForReservationResponseDto> fdto = new ArrayList<FlightForReservationResponseDto>();
+			List<Flight> flights = lr.getFlightsByParamsForReservation(request.getPolazniAerodrom(), request.getDolazniAerodrom(), request.getDatum(), request.getBrojPutnika());
+			for(Flight f : flights) {
+				FlightForReservationResponseDto dto = new FlightForReservationResponseDto(f);
+				fdto.add(dto);
+		}
+		return new ResponseEntity<List<FlightForReservationResponseDto>>(fdto, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<String>("Nema letova "+e.getMessage(), HttpStatus.NOT_FOUND);
 		}
