@@ -37,6 +37,10 @@ public class Userr implements Serializable {
 	@OneToMany(mappedBy="userr")
 	private List<Reservation> reservations;
 
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="userr")
+	private List<Comment> comments;
+
 	public Userr() {
 	}
 
@@ -124,6 +128,28 @@ public class Userr implements Serializable {
 		reservation.setUserr(null);
 
 		return reservation;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setUserr(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setUserr(null);
+
+		return comment;
 	}
 
 }

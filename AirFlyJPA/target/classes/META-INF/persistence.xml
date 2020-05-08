@@ -4,6 +4,7 @@
 		<class>model.Aircraft</class>
 		<class>model.Airport</class>
 		<class>model.City</class>
+		<class>model.Comment</class>
 		<class>model.Company</class>
 		<class>model.Flight</class>
 		<class>model.NumberOfAircraft</class>

@@ -20,6 +20,8 @@ public class Company implements Serializable {
 
 	private String naziv;
 
+	private double ocena;
+
 	private String opis;
 
 	private String prtljag;
@@ -27,6 +29,10 @@ public class Company implements Serializable {
 	//bi-directional many-to-one association to Flight
 	@OneToMany(mappedBy="company")
 	private List<Flight> flights;
+
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="company")
+	private List<Comment> comments;
 
 	//bi-directional many-to-one association to NumberOfAircraft
 	@OneToMany(mappedBy="company")
@@ -49,6 +55,14 @@ public class Company implements Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	public double getOcena() {
+		return this.ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 
 	public String getOpis() {
@@ -87,6 +101,28 @@ public class Company implements Serializable {
 		flight.setCompany(null);
 
 		return flight;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setCompany(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setCompany(null);
+
+		return comment;
 	}
 
 	public List<NumberOfAircraft> getNumberOfAircrafts() {
