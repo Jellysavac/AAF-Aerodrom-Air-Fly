@@ -99,7 +99,7 @@ class Rezervacija extends Component{
     handleSubmitReservation = event =>{
         event.preventDefault();
 
-        axios.post('http://localhost:8080/AirFly/reservation/addReservation', {brojKarata: this.state.putnici, idKarte: this.state.selectedRow.id, idKorisnika: localStorage.getItem("tokens")})
+        axios.post('http://localhost:8080/AirFly/reservation/addReservation', {brojKarata: this.state.putnici, idKarte: this.state.selectedRow.id, idKorisnika: localStorage.getItem("id")})
         .then(res =>{
             console.log(res.data)
             alert("Uspesna rezervacija")
@@ -134,8 +134,10 @@ class Rezervacija extends Component{
       }
 
       logout = () =>{
-          localStorage.removeItem("tokens")
-      }
+        localStorage.removeItem("tokens")
+        localStorage.removeItem("id")
+        localStorage.removeItem("name")
+    }
 
     render(){
         return(

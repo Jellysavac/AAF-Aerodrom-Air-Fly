@@ -25,8 +25,10 @@ class HomeUser extends Component{
         })
       }
   
-    logout = () =>{
-      localStorage.removeItem("tokens")
+      logout = () =>{
+        localStorage.removeItem("tokens")
+        localStorage.removeItem("id")
+        localStorage.removeItem("name")
     }
    
 

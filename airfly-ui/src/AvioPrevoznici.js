@@ -8,11 +8,18 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { FaSearch } from "react-icons/fa";
+import CommentForm from './CommentForm'
+import CommentList from './CommentList'
 
 class AvioPrevoznici extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            companies: [], naziv: "",  aircrafts: [], showCompany: false, prevoznik: {},  comments: [],
+            loading: false, companyId: ""
+        }
 
-    state = {
-        companies: [], naziv: "",  aircrafts: [], showCompany: false, prevoznik: {}
+        this.addComment = this.addComment.bind(this);
     }
 
     componentDidMount(){
@@ -29,14 +36,22 @@ class AvioPrevoznici extends Component{
 
        Promise.all([
            axios.post('http://localhost:8080/AirFly/company/getCompanyByName', {naziv: this.state.naziv}),
-           axios.post('http://localhost:8080/AirFly/numberOfAircraft/getAircraftByCompany', {naziv: this.state.naziv})
+           axios.post('http://localhost:8080/AirFly/numberOfAircraft/getAircraftByCompany', {naziv: this.state.naziv}),
+           axios.post('http://localhost:8080/AirFly/comment/getAllComments', {naziv: this.state.naziv})
        ])
-       .then(([companyResponse, numOfAircraftResponse]) => {
+       .then(([companyResponse, numOfAircraftResponse, commentResponse]) => {
            console.log(companyResponse.data);
            console.log(numOfAircraftResponse.data);
-           this.setState({prevoznik: companyResponse.data, aircrafts: numOfAircraftResponse.data});
+           this.setState({prevoznik: companyResponse.data, aircrafts: numOfAircraftResponse.data, comments: commentResponse.data});
        });
    }
+
+   addComment(comment) {
+    this.setState({
+      loading: false,
+      comments: [comment, ...this.state.comments]
+    });
+  }
 
    showCompany = () => {
     const {prevoznik} = this.state
@@ -47,14 +62,27 @@ class AvioPrevoznici extends Component{
         <p style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.opis}</p>
         <p style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.prtljag}</p>
         <h5 style={{ paddingLeft: 10, paddingRight: 10 }}>Flota</h5>
-        <ul class="list-group list-group-flush">{this.state.aircrafts.map(aircraft => <li class="list-group-item">{aircraft.tip}  <img src={`data:image/jpeg;base64,${aircraft.slika}`}  /> <br/> Broj aviona: {aircraft.kolicina}</li> )}</ul>
-        
+        <ul className="list-group list-group-flush">{this.state.aircrafts.map(aircraft => <li className="list-group-item">{aircraft.tip}  <img src={`data:image/jpeg;base64,${aircraft.slika}`}  /> <br/> Broj aviona: {aircraft.kolicina}</li> )}</ul>
+        <div className="row">
+          <div className="col-4  pt-3 border-right">
+            <h6>Recite nešto o ovoj kompaniji</h6>
+            <CommentForm addComment={this.addComment} companyId={this.state.companyId} />
+          </div>
+          <div className="col-8  pt-3 bg-white">
+          <CommentList
+              loading={this.state.loading}
+              comments={this.state.comments}
+            />
+          </div>
+        </div>
         </div>
     )
     }
     
     logout = () =>{
         localStorage.removeItem("tokens")
+        localStorage.removeItem("id")
+        localStorage.removeItem("name")
     }
 
     render(){
@@ -80,9 +108,9 @@ class AvioPrevoznici extends Component{
                <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
                  <Form.Group as={Col} controlId="formGridCompany">
                  <Form.Label></Form.Label>
-                   <Form.Control as="select" value={this.state.naziv} onChange={(e) => this.setState({naziv: e.target.value})}>
+                   <Form.Control as="select" onChange={(e) => this.setState({naziv: e.target.value.substring(3), companyId: e.target.value.substring(0,1)})}>
                      <option>Izaberite avio prevoznika</option>
-                     {this.state.companies.map(company => <option>{company.naziv}</option>)}
+                     {this.state.companies.map(company => <option>{company.id}. {company.naziv}</option>)}
                    </Form.Control>
                  </Form.Group>
                  <Button variant="light" type="submit" onClick={() => this.setState({showCompany: true}) }><FaSearch/></Button>

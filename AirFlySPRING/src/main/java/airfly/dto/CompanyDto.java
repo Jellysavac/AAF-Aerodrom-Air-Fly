@@ -4,14 +4,24 @@ import model.Company;
 
 public class CompanyDto {
 
+	private int id;
 	private String naziv;
 	private String opis;
 	private String prtljag;
 	
 	public CompanyDto(Company c) {
+		id = c.getId();
 		naziv = c.getNaziv();
 		opis = c.getOpis();
 		prtljag = c.getPrtljag();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNaziv() {

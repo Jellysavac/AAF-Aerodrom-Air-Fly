@@ -66,7 +66,7 @@ showFormForTicket = () => {
 
             <Form.Group as={Col} controlId="formGridLet">
             <Form.Label>Let</Form.Label>
-            <Form.Control as="select"  value={this.state.letId} onChange={(e) => this.setState({letId: e.target.value.substring( 0, e.target.value.indexOf(","))})} >
+            <Form.Control as="select" onChange={(e) => this.setState({letId: e.target.value.substring( 0, e.target.value.indexOf(","))})} >
             <option defalut>Id, polazni aerodrom, dolazni aerodrom, datum, kompanija</option>
     {this.state.flights.map(response => <option>{response.id}, {response.nazivPolaznog}, {response.nazivDolaznog}, {response.datum}, {response.kompanija}</option>)}
                 
@@ -82,6 +82,8 @@ showFormForTicket = () => {
 
 logout = () =>{
     localStorage.removeItem("tokens")
+    localStorage.removeItem("id")
+    localStorage.removeItem("name")
 }
 
     render(){

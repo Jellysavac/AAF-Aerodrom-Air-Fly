@@ -62,12 +62,12 @@ function Login(props) {
         transform: 'translate(-50%, -50%)'
     }}>
             <MDBContainer>
-            { isError &&<Error>Pogrešno unet email i/ili lozinka!</Error> }
+           
             <MDBRow>
               <MDBCol md="18">
                 <form onSubmit={handleSubmit}>
                 
-                  <h1><MdLocalAirport />AIR FLY</h1>
+                  <h1 align="center"><MdLocalAirport />AIR FLY</h1>
                   <br/>
                   <p className="h4 text-center mb-4">Prijavljivanje</p>
                   <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
@@ -79,6 +79,10 @@ function Login(props) {
                     <MdLock/> Lozinka
                   </label>
                   <input type="password" id="defaultFormLoginPasswordEx" className="form-control" name="lozinka" onChange={e=>{setLozinka(e.target.value)}} />
+                  <br/>
+                  <div style={{width: '78vh'}}>
+                  { isError &&<div className="alert alert-danger" align="center">Pogrešno unet email i/ili lozinka!</div> }
+                  </div>
                   <div className="text-center mt-4">
                     <MDBBtn color="indigo" type="submit">Prijavi se</MDBBtn>
                   </div>

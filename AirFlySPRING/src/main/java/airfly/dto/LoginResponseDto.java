@@ -14,7 +14,7 @@ public class LoginResponseDto {
 	
 	public LoginResponseDto(Userr user) {
 		id = user.getId();
-		ime = user.getIme();
+		ime = user.getIme()+" "+user.getPrezime();
 		prezime = user.getPrezime();
 		email = user.getEmail();
 		adresa = user.getAdresa();

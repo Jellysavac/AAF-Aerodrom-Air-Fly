@@ -18,7 +18,11 @@ function App(props){
   const [authTokens, setAuthTokens] = useState(existingTokens);
   
   const setTokens = (data) => {
-    localStorage.setItem("tokens", JSON.stringify(data.id));
+    var randomToken = require('random-token')
+    var token = randomToken(16)
+    localStorage.setItem("tokens", JSON.stringify(token));
+    localStorage.setItem("id", JSON.stringify(data.id))
+    localStorage.setItem("name", data.ime)
     setAuthTokens(data);
   }
 
