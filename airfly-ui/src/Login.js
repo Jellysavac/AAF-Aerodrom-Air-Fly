@@ -80,7 +80,7 @@ function Login(props) {
                   </label>
                   <input type="password" id="defaultFormLoginPasswordEx" className="form-control" name="lozinka" onChange={e=>{setLozinka(e.target.value)}} />
                   <br/>
-                  <div style={{width: '78vh'}}>
+                  <div style={{width: '40vh'}}>
                   { isError &&<div className="alert alert-danger" align="center">Pogrešno unet email i/ili lozinka!</div> }
                   </div>
                   <div className="text-center mt-4">
