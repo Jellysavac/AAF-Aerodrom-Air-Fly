@@ -7,4 +7,6 @@ import model.Company;
 public interface CompanyRepository extends JpaRepository<Company, Integer>{
 	
 	Company findByNaziv(String naziv);
+	
+	Company findById(int id);
 }
