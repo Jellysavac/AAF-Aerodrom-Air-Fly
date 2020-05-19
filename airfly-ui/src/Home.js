@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button'
 import { FaSearch } from "react-icons/fa";
 import {FiLogIn} from "react-icons/fi";
 import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport} from "react-icons/md"
+import { BsPen } from "react-icons/bs";
 
 class Home extends Component {
   
@@ -61,8 +62,8 @@ showTable = () => {
                <tr key={key}>
                     <td>{data.datum}</td>
                     <td>{data.vrsta}</td>
-                    <td>{data.nazivPolaznog}</td>
-                    <td>{data.nazivDolaznog}</td>
+                    <td>{data.nazivPolaznog}, {data.polazniGrad}</td>
+                    <td>{data.nazivDolaznog}, {data.dolazniGrad}</td>
                     <td>{data.kompanija}</td>
                </tr>
            )
@@ -84,7 +85,7 @@ render(){
       </Nav>
       <Nav>
         <Nav.Link href="/register">
-          Register
+          <BsPen/> Register
         </Nav.Link>
         <Nav.Link eventKey={2} href="/login">
          Login <FiLogIn/>
@@ -97,17 +98,17 @@ render(){
         <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
           <Form.Group as={Col} controlId="formGridKlasa">
             <Form.Label><MdFlightTakeoff/>  Polazni aerodrom</Form.Label>
-            <Form.Control as="select" value={this.state.polazniAerodrom} onChange={(e) => this.setState({polazniAerodrom: e.target.value})}>
+            <Form.Control as="select"  onChange={(e) => this.setState({polazniAerodrom: e.target.value.substring(0, e.target.value.indexOf(","))})}>
               <option>Izaberite polazni aerodrom</option>
-              {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
+              {this.state.airports.map(airport => <option>{airport.naziv}, {airport.grad}</option>)}
             </Form.Control>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridCena">
             <Form.Label><MdFlightLand/> Dolazni aerodrom</Form.Label>
-            <Form.Control as="select" value={this.state.dolazniAerodrom} onChange={(e) => this.setState({dolazniAerodrom: e.target.value})}>
+            <Form.Control as="select" onChange={(e) => this.setState({dolazniAerodrom: e.target.value.substring(0, e.target.value.indexOf(","))})}>
               <option>Izaberite dolazni aerodorm</option>
-              {this.state.airports.map(airport => <option>{airport.naziv}</option>)}
+              {this.state.airports.map(airport => <option>{airport.naziv}, {airport.grad}</option>)}
             </Form.Control>
           </Form.Group>
 

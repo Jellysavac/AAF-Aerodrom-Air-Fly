@@ -87,6 +87,9 @@ function Login(props) {
                     <MDBBtn color="indigo" type="submit">Prijavi se</MDBBtn>
                   </div>
                 </form>
+                <center>
+                <a href="/register" >Nemate nalog? Registrujte se.</a>
+                </center>
               </MDBCol>
             </MDBRow>
            

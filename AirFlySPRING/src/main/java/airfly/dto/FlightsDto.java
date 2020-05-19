@@ -10,6 +10,8 @@ public class FlightsDto {
 	private String nazivPolaznog;
 	private String nazivDolaznog;
 	private String kompanija;
+	private String dolazniGrad;
+	private String polazniGrad;
 	
 	public FlightsDto(Flight let) {
 		id = let.getId();
@@ -19,6 +21,8 @@ public class FlightsDto {
 		nazivPolaznog=let.getAirport1().getNaziv();
 		nazivDolaznog=let.getAirport2().getNaziv();
 		kompanija=let.getCompany().getNaziv();
+		polazniGrad = let.getAirport1().getCity().getNaziv();
+		dolazniGrad = let.getAirport2().getCity().getNaziv();
 		
 	}
 
@@ -78,6 +82,22 @@ public class FlightsDto {
 
 	public void setKompanija(String kompanija) {
 		this.kompanija = kompanija;
+	}
+
+	public String getDolazniGrad() {
+		return dolazniGrad;
+	}
+
+	public void setDolazniGrad(String dolazniGrad) {
+		this.dolazniGrad = dolazniGrad;
+	}
+
+	public String getPolazniGrad() {
+		return polazniGrad;
+	}
+
+	public void setPolazniGrad(String polazniGrad) {
+		this.polazniGrad = polazniGrad;
 	}
 	
 	
