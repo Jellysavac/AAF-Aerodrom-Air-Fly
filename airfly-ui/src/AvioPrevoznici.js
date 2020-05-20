@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button'
 import { FaSearch } from "react-icons/fa";
 import CommentForm from './CommentForm'
 import CommentList from './CommentList'
+import StarRatings from 'react-star-ratings'; 
+import RatingForm from './RatingForm'
 
 class AvioPrevoznici extends Component{
     constructor(props){
@@ -58,7 +60,7 @@ class AvioPrevoznici extends Component{
     return(
         
         <div>
-        <h4 style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.naziv}</h4>
+        <h4 style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.naziv} &nbsp; &nbsp;   <StarRatings name="rating" rating={prevoznik.ocena} starDimension="40px" starRatedColor="gold"/></h4>
         <p style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.opis}</p>
         <p style={{ paddingLeft: 10, paddingRight: 10 }}>{prevoznik.prtljag}</p>
         <h5 style={{ paddingLeft: 10, paddingRight: 10 }}>Flota</h5>
@@ -67,6 +69,8 @@ class AvioPrevoznici extends Component{
           <div className="col-4  pt-3 border-right">
             <h6>Recite nešto o ovoj kompaniji</h6>
             <CommentForm addComment={this.addComment} companyId={this.state.companyId} />
+            <h6>Ocenite ovu kompaniju</h6>
+            <RatingForm  naziv={this.state.naziv}/>
           </div>
           <div className="col-8  pt-3 bg-white">
           <CommentList

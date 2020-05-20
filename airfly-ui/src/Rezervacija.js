@@ -141,8 +141,8 @@ class Rezervacija extends Component{
                    <p><RiMoneyEuroCircleLine/> Cena: {this.state.cena.cena*this.state.putnici} eura</p>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="secondary" onClick={()=>{this.setState({showTicket:false})}}>Poništi</Button>
-                    <Button variant="primary" onClick={this.handleSubmitReservation}>Rezerviši</Button>
+                    <Button variant="secondary" onClick={()=>{this.setState({showTicket:false})}}>Odustani</Button>
+                    <Button variant="primary" onClick={this.handleSubmitReservation}>Potvrdi</Button>
                 </DialogActions>
             </Dialog>
         )
