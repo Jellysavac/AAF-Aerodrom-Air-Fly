@@ -8,12 +8,14 @@ public class CompanyDto {
 	private String naziv;
 	private String opis;
 	private String prtljag;
+	private double ocena;
 	
 	public CompanyDto(Company c) {
 		id = c.getId();
 		naziv = c.getNaziv();
 		opis = c.getOpis();
 		prtljag = c.getPrtljag();
+		ocena = c.getOcena();
 	}
 
 	public int getId() {
@@ -46,5 +48,13 @@ public class CompanyDto {
 
 	public void setPrtljag(String prtljag) {
 		this.prtljag = prtljag;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 }

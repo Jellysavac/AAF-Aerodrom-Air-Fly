@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airfly.dto.CompanyDto;
 import airfly.dto.GetCompanyByNameRequestDto;
+import airfly.dto.RatingCompanyRequestDto;
+import airfly.dto.RatingCompanyResponseDto;
 import airfly.repository.CompanyRepository;
 import airfly.repository.NumberOfAircraftRepository;
 import model.Company;
@@ -46,5 +48,14 @@ public class CompanyController {
 		Company c = cr.findByNaziv(request.getNaziv());
 		CompanyDto cdto = new CompanyDto(c);
 		return new ResponseEntity<CompanyDto>(cdto, HttpStatus.OK);
+	}
+	
+	@PostMapping("/ratingCompany")
+	ResponseEntity<RatingCompanyResponseDto> reatingCompany(@RequestBody RatingCompanyRequestDto request){
+		double novaOcena = cr.updateOcena(request.getOcena(), request.getNaziv());
+		Company c = new Company();
+		c.setOcena(novaOcena);
+		RatingCompanyResponseDto dto = new RatingCompanyResponseDto(c);
+		return new ResponseEntity<RatingCompanyResponseDto>(dto, HttpStatus.OK);
 	}
 }

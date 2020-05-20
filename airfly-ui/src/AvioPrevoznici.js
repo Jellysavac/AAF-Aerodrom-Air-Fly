@@ -16,7 +16,7 @@ class AvioPrevoznici extends Component{
         super(props);
         this.state = {
             companies: [], naziv: "",  aircrafts: [], showCompany: false, prevoznik: {},  comments: [],
-            loading: false, companyId: ""
+            loading: false, companyId: "", rating: 0
         }
 
         this.addComment = this.addComment.bind(this);
