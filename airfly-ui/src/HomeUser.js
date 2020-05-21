@@ -9,6 +9,7 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import { FaSearch } from "react-icons/fa";
 import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport} from "react-icons/md"
+import BestCompany from './BestCompany'
 
 class HomeUser extends Component{
 
@@ -51,6 +52,8 @@ class HomeUser extends Component{
             </Navbar.Collapse>
           </Navbar>
           <br/>
+          <div className="row">
+          <div className="col-8  pt-3 border-right">
           <h4 style={{ paddingLeft: 10, paddingRight: 10 }}>Najpovoljnije karte</h4> 
           <Table striped bordered hover>
             <thead>
@@ -59,7 +62,7 @@ class HomeUser extends Component{
                 <th>Cena (€)</th>
                 <th>Polazni aerodrom</th>
                 <th>Dolazni aerodrom</th>
-                <th>Datum</th>
+                <th>Datum leta</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +78,12 @@ class HomeUser extends Component{
               )
               })}
             </tbody>
-          </Table>      
+          </Table>  
+          </div> 
+          <div className="col-4  pt-3 bg-white">
+            <BestCompany/>
+          </div>
+          </div>   
         </div>
       )
   }             

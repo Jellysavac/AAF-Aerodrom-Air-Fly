@@ -85,7 +85,7 @@ export default class CommentForm extends Component {
       <React.Fragment>
         <form method="post" onSubmit={this.onSubmit}>
 
-          <div className="form-group">
+          <div className="position">
             <textarea
               onChange={this.handleFieldChange}
               value={this.state.comment.tekst}
@@ -98,7 +98,7 @@ export default class CommentForm extends Component {
 
           {this.renderError()}
 
-          <div className="form-group">
+          <div className="position">
             <button disabled={this.state.loading} className="btn btn-primary">
               Postavi komentar &#10148;
             </button>

@@ -69,7 +69,7 @@ class Rezervacija extends Component{
               <th>Vrsta leta</th>
               <th>Polazni aerodrom</th>
               <th>Dolazni aerodrom</th>
-              <th>Kompanija</th>
+              <th>Avio-prevoznik</th>
               <th></th>
           </tr>
           </thead>
@@ -130,7 +130,7 @@ class Rezervacija extends Component{
                     {this.state.messageError}
                 </div>}
 
-                <DialogTitle><FiCheckCircle/> Vaša rezervacija </DialogTitle>
+                <DialogTitle><FiCheckCircle className="position-right"/> Vaša rezervacija </DialogTitle>
                 
                 <DialogContent>
                    <p><MdFlightTakeoff/> Polazni aerodrom: {this.state.selectedRow.polazni}, {this.state.selectedRow.gradPolazni}</p>
@@ -138,6 +138,7 @@ class Rezervacija extends Component{
                    <p><MdDateRange/> Datum: {this.state.selectedRow.datum}</p>
                    <p><MdLocalAirport/> Avio-prevoznik: {this.state.selectedRow.kompanija}</p>
                    <p><FaTicketAlt/> Broj karata: {this.state.putnici}</p>
+                   <p><MdEventSeat /> Klasa: {this.state.klasa}</p>
                    <p><RiMoneyEuroCircleLine/> Cena: {this.state.cena.cena*this.state.putnici} eura</p>
                 </DialogContent>
                 <DialogActions>

@@ -13,6 +13,7 @@ import CommentList from './CommentList'
 import StarRatings from 'react-star-ratings'; 
 import RatingForm from './RatingForm'
 
+
 class AvioPrevoznici extends Component{
     constructor(props){
         super(props);
@@ -67,13 +68,13 @@ class AvioPrevoznici extends Component{
         <ul className="list-group list-group-flush">{this.state.aircrafts.map(aircraft => <li className="list-group-item">{aircraft.tip}  <img src={`data:image/jpeg;base64,${aircraft.slika}`}  /> <br/> Broj aviona: {aircraft.kolicina}</li> )}</ul>
         <div className="row">
           <div className="col-4  pt-3 border-right">
-            <h6>Recite nešto o ovoj kompaniji</h6>
+            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Recite nešto o ovoj kompaniji</h6>
             <CommentForm addComment={this.addComment} companyId={this.state.companyId} />
-            <h6>Ocenite ovu kompaniju</h6>
+            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Ocenite ovu kompaniju</h6>
             <RatingForm  naziv={this.state.naziv}/>
           </div>
           <div className="col-8  pt-3 bg-white">
-          <CommentList
+          <CommentList 
               loading={this.state.loading}
               comments={this.state.comments}
             />
@@ -118,8 +119,9 @@ class AvioPrevoznici extends Component{
                    </Form.Control>
                  </Form.Group>
                  <Button variant="light" type="submit" onClick={() => this.setState({showCompany: true}) }><FaSearch/></Button>
-                   {this.state.showCompany ? this.showCompany() : null}
+                   
                 </Form.Row>
+                {this.state.showCompany ? this.showCompany() : null}
                 
         </Form>
         

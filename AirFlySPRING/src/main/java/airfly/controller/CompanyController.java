@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airfly.dto.BestCompaniesResponseDto;
 import airfly.dto.CompanyDto;
 import airfly.dto.GetCompanyByNameRequestDto;
 import airfly.dto.RatingCompanyRequestDto;
@@ -57,5 +58,16 @@ public class CompanyController {
 		c.setOcena(novaOcena);
 		RatingCompanyResponseDto dto = new RatingCompanyResponseDto(c);
 		return new ResponseEntity<RatingCompanyResponseDto>(dto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/bestCompanies")
+	ResponseEntity<List<BestCompaniesResponseDto>> bestCompanies(){
+		List<BestCompaniesResponseDto> dto = new ArrayList<BestCompaniesResponseDto>();
+		List<Company> companies = cr.findBestCompanies();
+		for(Company c : companies) {
+			BestCompaniesResponseDto bcdto = new BestCompaniesResponseDto(c);
+			dto.add(bcdto);
+		}
+		return new ResponseEntity<List<BestCompaniesResponseDto>>(dto, HttpStatus.OK);
 	}
 }

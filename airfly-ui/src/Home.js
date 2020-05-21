@@ -16,7 +16,7 @@ import { BsPen } from "react-icons/bs";
 class Home extends Component {
   
   state = {
-    flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: []
+    flights: [], showTable: false, polazniAerodrom: "", dolazniAerodrom: "", datum: "", airports: [], messageInfoFlights: ""
 }
 
 componentDidMount(){
@@ -34,18 +34,21 @@ handleSubmit = event => {
   .then(res => {
     console.log(res.data);
     if(res.data.length===0){
-      alert("Nema letova")
+      this.setState({messageInfoFlights: "Nema letova."})
     }
     else{
       const flights = res.data;
       this.setState({flights});
     }
   });
-
+  this.setState({messageInfoFlights: ""})
 }
 
 showTable = () => {
   return(
+    <div>
+    {this.state.messageInfoFlights !== "" && <div class="alert alert-info" role="alert" align="center">
+                    {this.state.messageInfoFlights} </div>}
     <Table striped bordered hover>
     <thead>
     <tr>
@@ -53,7 +56,7 @@ showTable = () => {
         <th>Vrsta leta</th>
         <th>Polazni aerodrom</th>
         <th>Dolazni aerodrom</th>
-        <th>Kompanija</th>
+        <th>Avio-prevoznik</th>
     </tr>
     </thead>
     <tbody>
@@ -71,6 +74,7 @@ showTable = () => {
         
   </tbody>
   </Table>
+  </div>
   )
 }
 
@@ -116,11 +120,11 @@ render(){
             <Form.Label><MdDateRange/> Datum</Form.Label>
             <Form.Control type="date"  value={this.state.datum} onChange={(e) => this.setState({datum: e.target.value})} />
           </Form.Group>
-
           <Button variant="light" type="submit" onClick={() => this.setState({showTable: true}) }><FaSearch/></Button>
-            {this.state.showTable ? this.showTable() : null}
         </Form.Row>
+            {this.state.showTable ? this.showTable() : null}
       </Form>  
+      
     </div>
   );
 }

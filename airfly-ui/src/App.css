@@ -41,3 +41,11 @@
   background-color: rgb(203, 203, 211);
 }
 
+.position{
+  position: relative;
+  left: 10px;
+}
+
+.position-right{
+  float: right;
+}

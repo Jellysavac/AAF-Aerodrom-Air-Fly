@@ -33,7 +33,7 @@ class RatingForm extends Component {
         const {rating} = this.state
         return(
             <form onSubmit={this.handleSubmit}>
-            <h3>
+            <h3 style={{ paddingLeft: 10, paddingRight: 10 }}>
                 <StarRatings name="rate1" starCount={5} rating={rating} changeRating={this.onStarClick} starDimension="30px" starRatedColor="gold"/>
             </h3>
             {this.state.messageError !== "" && <div class="alert alert-danger" role="alert" align="center">
@@ -42,8 +42,9 @@ class RatingForm extends Component {
             {this.state.messageSuccess !== "" && <div class="alert alert-success" role="alert" align="center">
                 {this.state.messageSuccess}
             </div>}
-            <button className="btn btn-primary">Oceni</button>
-           
+            <div className="position">
+            <button className="btn btn-primary" >Oceni</button>
+            </div>
         </form>
 
         )
