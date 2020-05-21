@@ -9,6 +9,8 @@ public class GetCheapestTicketDto {
 	private String polazniAerodrom;
 	private String dolazniAerodrom;
 	private String datum;
+	private String gradPolazni;
+	private String gradDolazni;
 	
 	public GetCheapestTicketDto(Ticket karta) {
 		klasa=karta.getKlasa();
@@ -16,6 +18,8 @@ public class GetCheapestTicketDto {
 		polazniAerodrom=karta.getFlight().getAirport1().getNaziv();
 		dolazniAerodrom=karta.getFlight().getAirport2().getNaziv();
 		datum=karta.getFlight().getDatum();
+		gradPolazni = karta.getFlight().getAirport1().getCity().getNaziv();
+		gradDolazni = karta.getFlight().getAirport2().getCity().getNaziv();
 					
 	}
 
@@ -57,6 +61,22 @@ public class GetCheapestTicketDto {
 
 	public void setDatum(String datum) {
 		this.datum = datum;
+	}
+
+	public String getGradPolazni() {
+		return gradPolazni;
+	}
+
+	public void setGradPolazni(String gradPolazni) {
+		this.gradPolazni = gradPolazni;
+	}
+
+	public String getGradDolazni() {
+		return gradDolazni;
+	}
+
+	public void setGradDolazni(String gradDolazni) {
+		this.gradDolazni = gradDolazni;
 	}
 	
 

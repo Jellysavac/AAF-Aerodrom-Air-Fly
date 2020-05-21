@@ -68,8 +68,8 @@ class HomeUser extends Component{
                 <tr key={keyT}>
                   <td>{dataT.klasa}</td>
                   <td>{dataT.cena}</td>
-                  <td>{dataT.polazniAerodrom}</td>
-                  <td>{dataT.dolazniAerodrom}</td>
+                  <td>{dataT.polazniAerodrom}, {dataT.gradPolazni}</td>
+                  <td>{dataT.dolazniAerodrom}, {dataT.gradDolazni}</td>
                   <td>{dataT.datum}</td>  
                 </tr>
               )
