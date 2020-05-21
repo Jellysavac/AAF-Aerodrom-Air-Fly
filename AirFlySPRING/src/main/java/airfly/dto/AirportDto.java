@@ -3,7 +3,7 @@ package airfly.dto;
 import model.Airport;
 
 public class AirportDto {
-
+	
 	private String naziv;
 	private String grad;
 	

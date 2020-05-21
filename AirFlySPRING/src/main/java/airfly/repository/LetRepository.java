@@ -12,7 +12,7 @@ import model.Flight;
 
 public interface LetRepository extends JpaRepository<Flight, Integer> {
 	
-	@Query(value = "SELECT * FROM (((flight as f INNER JOIN airport as a1 on a1.id=f.polazni_aerodrom_id) INNER JOIN airport as a2 on a2.id=f.dolazni_aerodrom_id) INNER JOIN company as c on c.id=f.company_id)", nativeQuery = true)
+	@Query(value = "SELECT * FROM (((flight as f INNER JOIN airport as a1 on a1.id=f.polazni_aerodrom_id) INNER JOIN airport as a2 on a2.id=f.dolazni_aerodrom_id) INNER JOIN company as c on c.id=f.company_id) GROUP BY f.id", nativeQuery = true)
 	List<Flight> findAllFlights();
 	
 	@Query(value = "SELECT * FROM (((flight as f INNER JOIN airport as a1 on a1.id=f.polazni_aerodrom_id) INNER JOIN airport as a2 on a2.id=f.dolazni_aerodrom_id) INNER JOIN company as c on c.id=f.company_id) WHERE a1.naziv=:polazniAerodrom AND a2.naziv=:dolazniAerodrom AND f.datum=:datum", nativeQuery = true)

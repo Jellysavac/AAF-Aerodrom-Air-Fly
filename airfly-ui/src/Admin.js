@@ -5,8 +5,9 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import axios from "axios";
 import {Navbar, Nav } from 'react-bootstrap';
-import {MdLocalAirport} from "react-icons/md"
+import {MdLocalAirport, MdEventSeat} from "react-icons/md"
 import {FiLogOut} from "react-icons/fi"
+import {RiMoneyEuroCircleLine} from "react-icons/ri"
 
 class Admin extends Component{
 
@@ -52,7 +53,7 @@ showFormForTicket = () => {
 
             <Form.Row style={{ paddingLeft: 10, paddingRight: 10 }}>
             <Form.Group as={Col} controlId="formGridKlasa">
-            <Form.Label>Klasa</Form.Label>
+            <Form.Label><MdEventSeat /> Klasa</Form.Label>
             <Form.Control as="select" value={this.state.klasa} onChange={(e) => this.setState({klasa: e.target.value})}>
                 <option>Ekonomska</option>
                 <option>Biznis</option>
@@ -60,12 +61,12 @@ showFormForTicket = () => {
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridCena">
-            <Form.Label>Cena</Form.Label>
-            <Form.Control type="number" step="0.1" value={this.state.cena} onChange={(e) => this.setState({cena: e.target.value})}/>
+            <Form.Label><RiMoneyEuroCircleLine/> Cena</Form.Label>
+            <Form.Control type="number" step="0.1" placeholder="€" value={this.state.cena} onChange={(e) => this.setState({cena: e.target.value})}/>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridLet">
-            <Form.Label>Let</Form.Label>
+            <Form.Label> <MdLocalAirport/> Let</Form.Label>
             <Form.Control as="select" onChange={(e) => this.setState({letId: e.target.value.substring( 0, e.target.value.indexOf(","))})} >
             <option defalut>Id, polazni aerodrom, dolazni aerodrom, datum, kompanija</option>
     {this.state.flights.map(response => <option>{response.id}, {response.nazivPolaznog}, {response.nazivDolaznog}, {response.datum}, {response.kompanija}</option>)}
@@ -75,6 +76,7 @@ showFormForTicket = () => {
             </Form.Row>
 
             <Button variant="secondary" type="submit">Dodaj</Button>
+            <Button variant="danger" onClick={() => this.setState({showFormForTicket: false})}>X</Button>
         </Form>
         </div>
         );
