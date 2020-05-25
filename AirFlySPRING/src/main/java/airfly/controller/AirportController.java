@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import airfly.dto.AirportDto;
-import airfly.dto.FlightsDto;
 import airfly.repository.AirportRepository;
-import airfly.repository.LetRepository;
 import model.Airport;
 
 

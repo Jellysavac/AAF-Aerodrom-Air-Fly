@@ -29,7 +29,6 @@ class Register extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     }
 
     handleSubmit(event) {
@@ -41,7 +40,7 @@ class Register extends Component {
                 console.log("SUCCSESS: ", response);
                 alert("Registracija uspešna.");
                 this.status.succsess = response.state;
-                this.forceUpdateHandler();
+                this.props.history.push("/login");
             })
             .catch(error => {
                 console.log("FAILED: ", error);
@@ -55,16 +54,7 @@ class Register extends Component {
         });
     }
 
-    forceUpdateHandler(){
-      //  console.log("ovde sam stigao");
-      //  setTimeout(function(){forceUpdate(); },3000);
-      //  console.log("ovde nisam sam stigao");
-    };
-
     render() { 
-        if (this.status.succsess===200) {
-            return (<Redirect to="/login" />);
-        }
             return (
                 <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
                     <MDBContainer>
@@ -115,7 +105,7 @@ class Register extends Component {
                         </MDBRow>
                     </MDBContainer>
                 </div>           
-            );
+       );
     }
 }
 export default Register

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.Company;
+import model.Flight;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer>{
 	
@@ -23,4 +24,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer>{
 	
 	@Query(value = "SELECT * FROM company c WHERE c.ocena>=3.5 ORDER BY c.ocena DESC", nativeQuery = true)
 	List<Company> findBestCompanies();
+	
+	@Query(value = "SELECT * FROM company c WHERE c.id=:id", nativeQuery = true)
+	Company findCompanyById(@Param("id") int id);
 }

@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airfly.dto.AddFlightRequestDto;
+import airfly.dto.AddFlightResponseDto;
 import airfly.dto.FlightForReservationRequsetDto;
 import airfly.dto.FlightForReservationResponseDto;
 import airfly.dto.FlightsDto;
 import airfly.dto.FlightsRequestDto;
+import airfly.repository.AirportRepository;
+import airfly.repository.CompanyRepository;
 import airfly.repository.LetRepository;
+import model.Airport;
+import model.Company;
 import model.Flight;
 
 @RestController
@@ -27,6 +33,12 @@ public class LetController {
 	
 	@Autowired
 	LetRepository lr;
+	
+	@Autowired
+	AirportRepository ar;
+	
+	@Autowired
+	CompanyRepository cr;
 	
 	@GetMapping("/getAllFlights")
 	ResponseEntity<List<FlightsDto>> getAllFlights(){
@@ -66,6 +78,27 @@ public class LetController {
 		return new ResponseEntity<List<FlightForReservationResponseDto>>(fdto, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<String>("Nema letova "+e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PostMapping("/addFlight")
+	ResponseEntity<?> addFlight(@RequestBody AddFlightRequestDto request){
+		try {
+			Flight flight = new Flight();
+			flight.setVrsta(request.getType());
+			flight.setDatum(request.getDate());
+			flight.setBrojMesta(request.getSeats());
+			Airport departure = ar.findAirportById(request.getIdDeparture());
+			flight.setAirport1(departure);
+			Airport arrival = ar.findAirportById(request.getIdArrival());
+			flight.setAirport2(arrival);
+			Company company = cr.findById(request.getIdCompany());
+			flight.setCompany(company);
+			lr.save(flight);
+			AddFlightResponseDto dto = new AddFlightResponseDto(flight);
+			return new ResponseEntity<AddFlightResponseDto>(dto, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<String>("Neuspesno dodavanje novog leta! " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }
