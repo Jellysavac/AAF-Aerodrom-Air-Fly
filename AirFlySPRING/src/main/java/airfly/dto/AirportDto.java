@@ -4,12 +4,22 @@ import model.Airport;
 
 public class AirportDto {
 	
+	private int id;
 	private String naziv;
 	private String grad;
 	
 	public AirportDto (Airport aerodrom) {
+		id = aerodrom.getId();
 		naziv=aerodrom.getNaziv();
 		grad = aerodrom.getCity().getNaziv();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getGrad() {

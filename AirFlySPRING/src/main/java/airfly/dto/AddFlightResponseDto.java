@@ -6,8 +6,8 @@ public class AddFlightResponseDto {
 	
 private int id;
 	
-	public AddFlightResponseDto(Flight ticket) {
-		id = ticket.getId();
+	public AddFlightResponseDto(Flight flight) {
+		id = flight.getId();
 	}
 
 	public int getId() {
