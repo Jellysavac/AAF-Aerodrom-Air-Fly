@@ -1,16 +1,11 @@
 package airfly.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +15,6 @@ import airfly.dto.LoginRequestDto;
 import airfly.dto.LoginResponseDto;
 import airfly.dto.RegisterRequestDto;
 import airfly.dto.RegisterResponseDto;
-import airfly.dto.UserDto;
 import airfly.repository.UserRepository;
 import model.Userr;
 @CrossOrigin(origins = "http://localhost:3000")
@@ -30,18 +24,6 @@ public class UserController {
 	
 	@Autowired
 	UserRepository ur;
-	
-	//metoda za test baze
-	@GetMapping("/getAllUsers")
-	ResponseEntity<List<UserDto>> getAllUsers(){
-		List<UserDto> udto = new ArrayList<UserDto>();
-		List<Userr> users = ur.findAll();
-		for(Userr u : users) {
-			UserDto user = new UserDto(u);
-			udto.add(user);
-		}
-		return new ResponseEntity<List<UserDto>>(udto, HttpStatus.OK);
-	}
 	
 	@PostMapping("/signin")
 	ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto request){
@@ -66,8 +48,17 @@ public class UserController {
 			u.setLozinka(request.getPassword());
 			u.setReservations(null);
 			u.setUloga("ROLE_USER");
-			ur.save(u);
-			return new ResponseEntity<RegisterResponseDto>(HttpStatus.OK);
+			Userr existingUser = ur.findByEmail(request.getEmail());
+			if(existingUser == null && request.getPassword().equals(request.getPassword_confirm())) {
+				ur.save(u);
+				return new ResponseEntity<RegisterResponseDto>(HttpStatus.OK);
+			}
+			else if(existingUser != null) {
+				return new ResponseEntity<String>("Korisnik vec postoji", HttpStatus.BAD_REQUEST);
+			}
+			else {
+				return new ResponseEntity<String>("Lozinke nisu iste", HttpStatus.CONFLICT);
+			}
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();

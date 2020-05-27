@@ -3,9 +3,6 @@ import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn} from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
 import {MdEmail, MdLock, MdLocalAirport, MdAccountCircle} from "react-icons/md";
-import { useAuth } from "./context/auth";
-import { Redirect } from "react-router-dom";
-import { Error } from "./components/AuthForms";
 
 class Register extends Component {
 
@@ -19,7 +16,10 @@ class Register extends Component {
             adress: "",
             password: "",
             password_confirm: "",
-            response: ""
+            response: "",
+            infoExistUser: "",
+            successRegister: "",
+            errorPassword: ""
         }
 
         this.status = {
@@ -35,17 +35,23 @@ class Register extends Component {
         event.preventDefault();
         axios
             .post('http://localhost:8080/AirFly/user/register',
-                {name: this.state.name, surname: this.state.surname, email: this.state.email, adress: this.state.adress, password: this.state.password})
+                {name: this.state.name, surname: this.state.surname, email: this.state.email, adress: this.state.adress, password: this.state.password, password_confirm: this.state.password_confirm})
             .then(response => {
                 console.log("SUCCSESS: ", response);
-                alert("Registracija uspešna.");
+                this.setState({successRegister: "Uspešno ste se registrovali. Možete se prijaviti "})
                 this.status.succsess = response.state;
-                this.props.history.push("/login");
             })
             .catch(error => {
                 console.log("FAILED: ", error);
                 this.status.failed = error.state;
+                if(error.response.status === 400){
+                    this.setState({infoExistUser: "Korisnik već postoji. Unesite drugačije podatke."})
+                }
+                if(error.response.status === 409){
+                    this.setState({errorPassword: "Lozinke nisu iste. Unesite iste lozinke."})
+                }
             });
+            this.setState({infoExistUser:"", errorPassword: ""})
     }
 
     handleChange(event) {
@@ -96,9 +102,16 @@ class Register extends Component {
                                         </label>
                                         <input id="password_confirm" type="password" name="password_confirm" className="form-control" value={this.state.password_confirm} onChange={this.handleChange} required />
                                     </span>
-                                    <br/>
-                                    <div className="text-center mt-4">
-                                        <MDBBtn color="indigo" type="submit">Register</MDBBtn>                  
+                                    <div className="text-center mt-4" style={{width: '50vh'}}>
+                                    {this.state.infoExistUser !== "" && <div class="alert alert-info" role="alert" align="center">
+                                        {this.state.infoExistUser} </div>}
+                                    {this.state.successRegister !== "" && <div class="alert alert-success" role="alert" align="center">
+                                        {this.state.successRegister} <a href="/login">Prijvite se</a></div>}
+                                    {this.state.errorPassword !== "" && <div class="alert alert-danger" role="alert" align="center">
+                                        {this.state.errorPassword} </div>}
+                                        <MDBBtn color="indigo" type="submit">Registruj se</MDBBtn>
+                                        <br></br>
+                                        Imate već nalog? <a href="/login">Prijavite se</a>                  
                                     </div>
                                 </form>
                             </MDBCol>

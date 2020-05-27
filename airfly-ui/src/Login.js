@@ -88,7 +88,7 @@ function Login(props) {
                   </div>
                 </form>
                 <center>
-                <a href="/register" >Nemate nalog? Registrujte se.</a>
+                Nemate nalog? <a href="/register">Registrujte se.</a>
                 </center>
               </MDBCol>
             </MDBRow>

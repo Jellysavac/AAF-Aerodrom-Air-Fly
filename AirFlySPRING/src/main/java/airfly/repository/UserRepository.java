@@ -12,7 +12,7 @@ import model.Userr;
 
 public interface UserRepository extends JpaRepository<Userr, Integer> {
 	
-	Optional<Userr> findByEmail(String email);
+	Userr findByEmail(String email);
 	
 	@Query(value = "SELECT * FROM userr u WHERE u.email=:email AND u.lozinka=:lozinka", nativeQuery = true)
 	Optional<Userr> findUserByEmailAndLozinka(@Param("email") String email, @Param("lozinka") String lozinka);
