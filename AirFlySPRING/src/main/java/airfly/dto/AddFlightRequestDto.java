@@ -5,9 +5,9 @@ public class AddFlightRequestDto {
 	String type;
 	String date;
 	int seats;
-	int idDeparture;
-	int idArrival;
-	int idCompany;
+	int departureId;
+	int arrivalId;
+	int companyId;
 	
 	public String getType() {
 		return type;
@@ -27,23 +27,23 @@ public class AddFlightRequestDto {
 	public void setSeats(int seats) {
 		this.seats = seats;
 	}
-	public int getIdDeparture() {
-		return idDeparture;
+	public int getDepartureId() {
+		return departureId;
 	}
-	public void setIdDeparture(int idDeparture) {
-		this.idDeparture = idDeparture;
+	public void setDepartureId(int departureId) {
+		this.departureId = departureId;
 	}
-	public int getIdArrival() {
-		return idArrival;
+	public int getArrivalId() {
+		return arrivalId;
 	}
-	public void setIdArrival(int idArrival) {
-		this.idArrival = idArrival;
+	public void setArrivalId(int arrivalId) {
+		this.arrivalId = arrivalId;
 	}
-	public int getIdCompany() {
-		return idCompany;
+	public int getCompanyId() {
+		return companyId;
 	}
-	public void setIdCompany(int idCompany) {
-		this.idCompany = idCompany;
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 	
 }

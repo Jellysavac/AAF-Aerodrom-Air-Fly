@@ -88,11 +88,11 @@ public class LetController {
 			flight.setVrsta(request.getType());
 			flight.setDatum(request.getDate());
 			flight.setBrojMesta(request.getSeats());
-			Airport departure = ar.findAirportById(request.getIdDeparture());
+			Airport departure = ar.findAirportById(request.getDepartureId());
 			flight.setAirport1(departure);
-			Airport arrival = ar.findAirportById(request.getIdArrival());
+			Airport arrival = ar.findAirportById(request.getArrivalId());
 			flight.setAirport2(arrival);
-			Company company = cr.findById(request.getIdCompany());
+			Company company = cr.findById(request.getCompanyId());
 			flight.setCompany(company);
 			lr.save(flight);
 			AddFlightResponseDto dto = new AddFlightResponseDto(flight);
