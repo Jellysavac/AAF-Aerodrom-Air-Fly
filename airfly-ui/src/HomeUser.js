@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav } from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown, Dropdown, NavItem, NavLink } from 'react-bootstrap';
 import {FiLogOut} from "react-icons/fi"
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -10,6 +10,7 @@ import Table from 'react-bootstrap/Table';
 import { FaSearch } from "react-icons/fa";
 import {MdFlightLand, MdFlightTakeoff, MdDateRange, MdLocalAirport} from "react-icons/md"
 import BestCompany from './BestCompany'
+import {IoIosPerson} from 'react-icons/io'
 
 class HomeUser extends Component{
 
@@ -45,9 +46,12 @@ class HomeUser extends Component{
                 <Nav.Link href="/rezervacija">Rezervacija karata</Nav.Link>
               </Nav>  
               <Nav>
-                <Nav.Link eventKey={2} href="/" onClick={this.logout}>
-                  Logout <FiLogOut/>
-                </Nav.Link>
+              <Dropdown as={NavItem}>
+                <Dropdown.Toggle as={NavLink}><IoIosPerson/> {localStorage.getItem("name")}</Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/" onClick={this.logout}>Odjavi se</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
@@ -63,6 +67,8 @@ class HomeUser extends Component{
                 <th>Polazni aerodrom</th>
                 <th>Dolazni aerodrom</th>
                 <th>Datum leta</th>
+                <th>Broj slobodnih mesta
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -74,6 +80,7 @@ class HomeUser extends Component{
                   <td>{dataT.polazniAerodrom}, {dataT.gradPolazni}</td>
                   <td>{dataT.dolazniAerodrom}, {dataT.gradDolazni}</td>
                   <td>{dataT.datum}</td>  
+                  <td>{dataT.brojMesta}</td>
                 </tr>
               )
               })}

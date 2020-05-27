@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav } from 'react-bootstrap';
+import {Navbar, Nav, Dropdown, NavItem, NavLink } from 'react-bootstrap';
 import {FiLogOut} from "react-icons/fi"
 import {MdLocalAirport} from "react-icons/md"
 import axios from 'axios';
@@ -12,6 +12,7 @@ import CommentForm from './CommentForm'
 import CommentList from './CommentList'
 import StarRatings from 'react-star-ratings'; 
 import RatingForm from './RatingForm'
+import {IoIosPerson} from 'react-icons/io'
 
 
 class AvioPrevoznici extends Component{
@@ -68,9 +69,9 @@ class AvioPrevoznici extends Component{
         <ul className="list-group list-group-flush">{this.state.aircrafts.map(aircraft => <li className="list-group-item">{aircraft.tip}  <img src={`data:image/jpeg;base64,${aircraft.slika}`}  /> <br/> Broj aviona: {aircraft.kolicina}</li> )}</ul>
         <div className="row">
           <div className="col-4  pt-3 border-right">
-            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Recite nešto o ovoj kompaniji</h6>
+            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Recite nešto o ovom avio-prevozniku</h6>
             <CommentForm addComment={this.addComment} companyId={this.state.companyId} />
-            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Ocenite ovu kompaniju</h6>
+            <h6 style={{ paddingLeft: 10, paddingRight: 10 }}>Ocenite ovog avio-prevoznika</h6>
             <RatingForm  naziv={this.state.naziv}/>
           </div>
           <div className="col-8  pt-3 bg-white">
@@ -102,10 +103,13 @@ class AvioPrevoznici extends Component{
           <Nav.Link href="/rezervacija">Rezervacija karata</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={2} href="/" onClick={this.logout}>
-            Logout <FiLogOut/>
-          </Nav.Link>
-          </Nav>
+              <Dropdown as={NavItem}>
+                <Dropdown.Toggle as={NavLink}><IoIosPerson/> {localStorage.getItem("name")}</Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/" onClick={this.logout}>Odjavi se</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              </Nav>
           </Navbar.Collapse>
         </Navbar>
         <br/>

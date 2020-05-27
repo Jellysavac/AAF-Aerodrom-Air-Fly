@@ -12,6 +12,7 @@ public class FlightForReservationResponseDto {
 	private String kompanija;
 	private String gradDolazni;
 	private String gradPolazni;
+	private int brojMesta;
 	
 	public FlightForReservationResponseDto(Flight f) {
 		id = f.getId();
@@ -22,6 +23,7 @@ public class FlightForReservationResponseDto {
 		kompanija = f.getCompany().getNaziv();
 		gradPolazni = f.getAirport1().getCity().getNaziv();
 		gradDolazni = f.getAirport2().getCity().getNaziv();
+		brojMesta = f.getBrojMesta();
 	}
 	
 	public int getId() {
@@ -87,6 +89,14 @@ public class FlightForReservationResponseDto {
 
 	public void setGradPolazni(String gradPolazni) {
 		this.gradPolazni = gradPolazni;
+	}
+
+	public int getBrojMesta() {
+		return brojMesta;
+	}
+
+	public void setBrojMesta(int brojMesta) {
+		this.brojMesta = brojMesta;
 	}
 	
 }

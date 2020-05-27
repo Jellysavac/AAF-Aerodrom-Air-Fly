@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav } from 'react-bootstrap';
+import {Navbar, Nav, Dropdown, NavItem, NavLink } from 'react-bootstrap';
 import {FiLogOut, FiCheckCircle} from "react-icons/fi"
 import {FaTicketAlt } from 'react-icons/fa'
 import {RiMoneyEuroCircleLine} from "react-icons/ri"
@@ -70,6 +70,7 @@ class Rezervacija extends Component{
               <th>Polazni aerodrom</th>
               <th>Dolazni aerodrom</th>
               <th>Avio-prevoznik</th>
+              <th>Broj slobodnih mesta</th>
               <th></th>
           </tr>
           </thead>
@@ -83,6 +84,7 @@ class Rezervacija extends Component{
                           <td>{data.polazni}, {data.gradPolazni}</td>
                           <td>{data.dolazni}, {data.gradDolazni}</td>
                           <td>{data.kompanija}</td> 
+                          <td>{data.brojMesta}</td>
                           <td><Tooltip title="Selektujte let da bi ste rezervisali"><span><Button variant="info" disabled={this.state.checked !== key} onClick={()=> {this.setState({showTicket:true}); this.getTicket()}}>Rezerviši</Button></span></Tooltip></td>    
                      </tr>
                      
@@ -167,9 +169,12 @@ class Rezervacija extends Component{
                             <Nav.Link href="/avioprevoznici">Avio prevoznici</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav.Link eventKey={2} href="/" onClick={this.logout}>
-                                Logout <FiLogOut/>
-                            </Nav.Link>
+                            <Dropdown as={NavItem}>
+                                <Dropdown.Toggle as={NavLink}><IoIosPerson/> {localStorage.getItem("name")}</Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="/" onClick={this.logout}>Odjavi se</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

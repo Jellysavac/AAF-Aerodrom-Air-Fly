@@ -11,6 +11,7 @@ public class GetCheapestTicketDto {
 	private String datum;
 	private String gradPolazni;
 	private String gradDolazni;
+	private int brojMesta;
 	
 	public GetCheapestTicketDto(Ticket karta) {
 		klasa=karta.getKlasa();
@@ -20,6 +21,7 @@ public class GetCheapestTicketDto {
 		datum=karta.getFlight().getDatum();
 		gradPolazni = karta.getFlight().getAirport1().getCity().getNaziv();
 		gradDolazni = karta.getFlight().getAirport2().getCity().getNaziv();
+		brojMesta = karta.getFlight().getBrojMesta();
 					
 	}
 
@@ -77,6 +79,14 @@ public class GetCheapestTicketDto {
 
 	public void setGradDolazni(String gradDolazni) {
 		this.gradDolazni = gradDolazni;
+	}
+
+	public int getBrojMesta() {
+		return brojMesta;
+	}
+
+	public void setBrojMesta(int brojMesta) {
+		this.brojMesta = brojMesta;
 	}
 	
 
